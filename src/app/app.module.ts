@@ -1,29 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
-
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 const config = {
-  apiKey: 'AIzaSyDsM5D-igywBeKby4nCi8nnOJ2Sh4BULTs',
-  authDomain: 'tiskahinventory.firebaseapp.com',
-  databaseURL: 'https://tiskahinventory.firebaseio.com',
-  projectId: 'tiskahinventory',
-  storageBucket: 'tiskahinventory.appspot.com',
-  messagingSenderId: '21765455320'
+  apiKey: 'AIzaSyBLmxKJs6pTHLQ4I-XnCWpDU9l7IW2-PU0',
+    authDomain: 'tiskah-website.firebaseapp.com',
+    databaseURL: 'https://tiskah-website.firebaseio.com',
+    projectId: 'tiskah-website',
+    storageBucket: 'tiskah-website.appspot.com',
+    messagingSenderId: '582975799486'
 };
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    MenuComponent
+    MenuComponent,
+    PlaceholderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(config)
+    AngularFireModule.initializeApp(config),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

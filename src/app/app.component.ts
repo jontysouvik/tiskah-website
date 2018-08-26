@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  isProductionReady: boolean;
+  constructor() {
+    if (environment.production) {
+      this.isProductionReady = false;
+    } else {
+      this.isProductionReady = true;
+    }
+  }
   title = 'tiskah-website';
 }

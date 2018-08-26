@@ -1,3 +1,6 @@
-<p>
-  home works!
-</p>
+ home works!
+<div class="row">
+  <div *ngFor="let image of images" class="col-md-4 col-6 image-div">
+    <img [src]="image.url" alt="" width="100%">
+  </div>
+</div>
