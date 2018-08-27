@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <form>
+      <div class="form-group">
+        <label for="catId">Category Id:</label>
+        <input type="text" name="catId" class="form-control" id="catId" readonly [(ngModel)]="category.id">
+      </div>
+      <div class="form-group">
+        <label for="catName">Name:</label>
+        <input type="text" name="catName" class="form-control" id="catName" [(ngModel)]="category.name">
+      </div>
+      <div class="form-group">
+        <div *ngFor="let filter of category.filters">
+          <label>{{filter}}</label>
+          <button type="button" (click)="removeFilter(filter)" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="form-inline">
+          <input type="text" name="catFilter" class="form-control" id="catFilter" [(ngModel)]="filter">
+          <button (click)="addFilter()" class="btn btn-default rounded-circle add-icon">
+              <i class="fa fa-plus"></i>
+          </button>
+        </div>
+
+      </div>
+      <div class="d-flex justify-content-between">
+        <button (click)="onSaveClick()" class="btn btn-success">Save</button>
+        <button (click)="onCancelClick()" class="btn btn-secondary">Cancel</button>
+      </div>
+
+    </form>
+  </div>
+  <div class="col-md-4"></div>
+</div>

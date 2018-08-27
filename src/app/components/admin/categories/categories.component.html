@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-12 d-flex justify-content-around">
+    <button class="btn btn-primary" (click)="onAddClick()">Add Category &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></button>
+  </div>
+</div>
+<div id="tableDiv" class="row">
+  <div class="col-md-12">
+    <table class="table-categories">
+      <tr>
+        <th>
+          Category ID
+        </th>
+        <th>
+          Category Name
+        </th>
+        <th>
+          Filters
+        </th>
+        <th>
+          Actions
+        </th>
+      </tr>
+      <tr *ngFor="let category of categories">
+        <td>{{category.id}}</td>
+        <td>{{category.name}}</td>
+        <td><span class="btn btn-primary btn-sm filter" *ngFor="let filter of category.filters">{{filter}} </span></td>
+        <td><button class="btn btn-success" (click)="onEdit(category)">Edit &nbsp;<i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+      </tr>
+    </table>
+  </div>
+</div>

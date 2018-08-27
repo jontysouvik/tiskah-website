@@ -1,0 +1,13 @@
+.table-categories {
+  width: 100%;
+}
+.filter {
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 0px;
+  padding-bottom: 3px;
+  margin-right: 5px;
+}
+#tableDiv{
+  margin-top: 5%;
+}
