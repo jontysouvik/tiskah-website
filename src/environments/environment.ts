@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  categoriesCollectionName: 'categoriesDev'
+  categoriesCollectionName: 'categoriesDev',
+  productsCollectionName: 'productsDev',
+  imageSizeLimitInBytes: 100000,
+  productImageUploadPath: 'ProductsImagesDev'
 };
 
 /*

@@ -3,6 +3,7 @@ import { Category } from '../../../../models/category';
 import { DateTimeService } from '../../../../services/date-time.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../../../../services/category.service';
+import { Filter } from '../../../../models/filter';
 
 @Component({
   selector: 'app-category',
@@ -42,7 +43,9 @@ export class CategoryComponent implements OnInit {
     });
   }
   addFilter() {
-    this.category.filters.push(this.filter);
+    const filter = new Filter;
+    filter.name = this.filter;
+    this.category.filters.push(filter);
     this.filter = '';
   }
   removeFilter(filter) {

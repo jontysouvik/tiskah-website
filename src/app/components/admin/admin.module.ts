@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryComponent } from './categories/category/category.component';
+import { ProductsComponent } from './products/products.component';
+import { ProductComponent } from './products/product/product.component';
 
 const Admin_Routes: Routes = [
   {
@@ -13,7 +15,9 @@ const Admin_Routes: Routes = [
         {  path: '', component: DashboardComponent },
           { path: 'dashboard', component: DashboardComponent },
           { path: 'categories', component: CategoriesComponent},
-          { path: 'categories/:id', component: CategoryComponent}
+          { path: 'categories/:id', component: CategoryComponent},
+          { path: 'products', component: ProductsComponent},
+          { path: 'products/:id', component: ProductComponent}
 
       ]
   }
@@ -25,6 +29,6 @@ const Admin_Routes: Routes = [
     FormsModule,
     RouterModule.forChild(Admin_Routes)
   ],
-  declarations: [AdminComponent, DashboardComponent, CategoriesComponent, CategoryComponent]
+  declarations: [AdminComponent, DashboardComponent, CategoriesComponent, CategoryComponent, ProductsComponent, ProductComponent]
 })
 export class AdminModule { }

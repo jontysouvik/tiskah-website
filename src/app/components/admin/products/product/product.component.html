@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <form>
+      <div class="form-group">
+        <label for="prodId">Product Id</label>
+        <input type="text" name="prodId" class="form-control" id="prodId" readonly [(ngModel)]="product.id">
+      </div>
+      <div *ngIf="product.imageUrl" class="form-group d-flex justify-content-center">
+        <img id="productImage" [src]="product.imageUrl" alt="Product Image">
+      </div>
+      <div class="form-row">
+        <div class="col-md-12 d-flex justify-content-center">
+          <button class="btn btn-primary" (click)="fileInput.click()">Add Image &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></button>
+          <input #fileInput type="file" (change)="chooseFiles($event)" style="display: none">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="prodName">Product Name</label>
+        <input type="text" name="prodName" class="form-control" id="prodName" [(ngModel)]="product.name">
+      </div>
+      <div class="form-row">
+        <div class="col-md-8 mb-3">
+          <label for="txtCompany">Company</label>
+          <input type="text" class="form-control" id="txtCompany" name="txtCompany" [(ngModel)]="product.company">
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="txtQty">Quantity</label>
+          <input type="text" class="form-control" id="txtQty" name="txtQty" [(ngModel)]="product.quantity">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ddlcategory">Category</label>
+        <select class="form-control" id="ddlcategory" name="ddlcategory" [(ngModel)]="selectedCategoryId" (change)="onCategoryChange()">
+          <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+        </select>
+      </div>
+      <small id="passwordHelpInline" *ngIf="selectedCategory" class="text-muted">
+        Add Comma (,) Separated Values
+      </small>
+      <div class="form-group" *ngFor="let filter of selectedCategory?.filters">
+        <label for="prodId">{{filter.name}}</label>
+        <input type="text" name="prodId" class="form-control" id="prodId" [(ngModel)]="filter.value">
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <button (click)="onSaveClick()" class="btn btn-success">Save</button>
+        <button (click)="onCancelClick()" class="btn btn-secondary">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-4"></div>
+</div>

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 const config = {
   apiKey: 'AIzaSyBLmxKJs6pTHLQ4I-XnCWpDU9l7IW2-PU0',
     authDomain: 'tiskah-website.firebaseapp.com',
@@ -28,7 +29,8 @@ const config = {
     AppRoutingModule,
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

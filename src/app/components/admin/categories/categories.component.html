@@ -23,7 +23,7 @@
       <tr *ngFor="let category of categories">
         <td>{{category.id}}</td>
         <td>{{category.name}}</td>
-        <td><span class="btn btn-primary btn-sm filter" *ngFor="let filter of category.filters">{{filter}} </span></td>
+        <td><span class="btn btn-primary btn-sm filter" *ngFor="let filter of category.filters">{{filter.name}} </span></td>
         <td><button class="btn btn-success" (click)="onEdit(category)">Edit &nbsp;<i class="fa fa-pencil" aria-hidden="true"></i></button></td>
       </tr>
     </table>
