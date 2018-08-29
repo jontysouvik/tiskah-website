@@ -1,0 +1,19 @@
+#tableDiv {
+  margin-top: 5%;
+}
+
+.table-products {
+  width: 100%;
+}
+
+.thumbnail-container {
+  max-width: 10%;
+  width: 10%;
+  min-width: 10%;
+}
+
+.product-thumbnail {
+  max-width: 100%;
+  width: 100%;
+  min-width: 100%;
+}

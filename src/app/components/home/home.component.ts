@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
     // this.layout = this.layoutObserable.snapshotChanges();
     // console.log(this.layout);
     this.layoutObserable.ref.get().then((doc) => {
-      console.log(doc.data());
       this.images = doc.data().images;
       // const images = this.layout.images;
       // let count = 0;

@@ -3,6 +3,7 @@ import { Category } from '../models/category';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable, Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { DateTimeService } from './date-time.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,23 +19,21 @@ export class CategoryService {
   categoriesSubscription: Subscription;
   categories: Category[];
   // categoriesChanged: EventEmitter<any>;
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, private dateTimeSvc: DateTimeService) {
     // this.categoriesChanged = new EventEmitter<any>();
     this.loadCategories();
   }
-  saveCategory(catagory: Category) {
-    return this.afs.collection(this.CONST_CATEGORIES_COLLECTION_NAME).doc(catagory.id).set(JSON.parse(JSON.stringify(catagory)));
+  saveCategory(category: Category) {
+    if (!category.id) {
+      const timeStamp = this.dateTimeSvc.getTimeString();
+      category.id = timeStamp;
+      category.timestamp = timeStamp;
+    }
+    return this.afs.collection(this.CONST_CATEGORIES_COLLECTION_NAME).doc(category.id).set(JSON.parse(JSON.stringify(category)));
   }
   loadCategories() {
-    console.log('Load Categories Called');
     this.categoriesCollection = this.afs.collection(this.CONST_CATEGORIES_COLLECTION_NAME);
     this.categoriesObserable = this.categoriesCollection.valueChanges();
-    // this.categoriesSubscription = this.categoriesObserable.subscribe((res) => {
-    //   this.categories = res;
-    //   console.log(res, 'categoriesObserable subs fired');
-    //   // this.categoriesChanged = new EventEmitter<Category[]>();
-    //   // this.categoriesChanged.emit(this.categories);
-    // });
   }
   getCategory(id: string) {
     this.categoryDoc = this.afs.doc(this.CONST_CATEGORIES_COLLECTION_NAME + '/' + id);

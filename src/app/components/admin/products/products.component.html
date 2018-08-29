@@ -3,3 +3,27 @@
     <button class="btn btn-primary" (click)="onAddClick()">Add Product &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></button>
   </div>
 </div>
+<div id="tableDiv" class="row">
+  <div class="col-md-12">
+    <table class="table-products">
+      <tr>
+        <th>Image</th>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let product of products">
+        <td class="thumbnail-container"><img class="product-thumbnail" [src]="product.imageUrl" [alt]="product.name"></td>
+        <td>{{product.id}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.quantity}}</td>
+        <td>{{product.price}}</td>
+        <td>{{product.categoryName}}</td>
+        <td><button class="btn btn-success" (click)="onEdit(product)">Edit &nbsp;<i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+      </tr>
+    </table>
+  </div>
+</div>

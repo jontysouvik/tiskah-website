@@ -14,14 +14,11 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private categoriesSvc: CategoryService) { }
 
   ngOnInit() {
-    console.log('On Init Called');
     this.categoriesSubscription = this.categoriesSvc.categoriesObserable.subscribe((res) => {
-      console.log(res, 'categoriesSubscription componet');
       this.categories = res;
     });
   }
   ngOnDestroy(): void {
-    console.log('On Destroy Called');
     this.categoriesSubscription.unsubscribe();
   }
   onAddClick() {
