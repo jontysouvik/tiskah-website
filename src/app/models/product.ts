@@ -3,6 +3,7 @@ export class Product {
   name: string;
   company: string;
   quantity: number;
+  price: number;
   filters: string;
   timestamp: string;
   categoryId: string;

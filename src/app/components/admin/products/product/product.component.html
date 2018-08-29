@@ -15,9 +15,15 @@
           <input #fileInput type="file" (change)="chooseFiles($event)" style="display: none">
         </div>
       </div>
-      <div class="form-group">
-        <label for="prodName">Product Name</label>
-        <input type="text" name="prodName" class="form-control" id="prodName" [(ngModel)]="product.name">
+      <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <label for="prodName">Product Name</label>
+            <input type="text" name="prodName" class="form-control" id="prodName" [(ngModel)]="product.name">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="prodPrice">Price</label>
+            <input type="text" name="prodPrice" class="form-control" id="prodPrice" [(ngModel)]="product.price">
+        </div>
       </div>
       <div class="form-row">
         <div class="col-md-8 mb-3">
