@@ -6,7 +6,8 @@ import { HomeComponent } from './components/home/home.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'admin', loadChildren: './components/admin/admin.module#AdminModule' }
+  { path: 'admin', loadChildren: './components/admin/admin.module#AdminModule' },
+  { path: 'user', loadChildren: './components/user/user.module#UserModule' }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
