@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Form } from '@angular/forms';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,11 +11,18 @@ import { Form } from '@angular/forms';
 export class SignInComponent implements OnInit {
   email: string;
   password: string;
-  constructor() { }
+  constructor(private router: Router, private authSvc: AuthService) { }
 
   ngOnInit() {
   }
-  onSubmit(form: Form) {
+  onSubmit(form: NgForm) {
     console.log(form);
+    this.authSvc.signinWithEmailAndPassword(form.value.email, form.value.password).then((res) => {
+      console.log(res);
+      this.router.navigate(['/']);
+    });
+  }
+  goToSignUp() {
+    this.router.navigate(['/user', 'auth', 'signup']);
   }
 }
