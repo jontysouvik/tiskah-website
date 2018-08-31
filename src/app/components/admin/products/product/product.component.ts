@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { environment } from '../../../../../environments/environment';
 import { ProductService } from '../../../../services/product.service';
+import { DelayService } from '../../../../services/delay.service';
 
 @Component({
   selector: 'app-product',
@@ -24,9 +25,9 @@ export class ProductComponent implements OnInit, OnDestroy {
   activeRouteSubscription: Subscription;
   slectedFiles: FileList;
   constructor(private router: Router, private categoriesSvc: CategoryService, private storage: AngularFireStorage,
-    private productSvc: ProductService, private activeRoute: ActivatedRoute) {
-      this.product = new  Product();
-     }
+    private productSvc: ProductService, private activeRoute: ActivatedRoute, private delaySvc: DelayService) {
+    this.product = new Product();
+  }
 
   ngOnInit() {
     this.categoriesSubscription = this.categoriesSvc.categoriesObserable.subscribe((res) => {
@@ -53,7 +54,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       for (let selectedCatFilterIndex = 0; selectedCatFilterIndex < this.selectedCategory.filters.length; selectedCatFilterIndex++) {
         const catFilter = this.selectedCategory.filters[selectedCatFilterIndex];
         if (catFilter.name === productFilter.name) {
-            catFilter.value = productFilter.value;
+          catFilter.value = productFilter.value;
         }
 
       }
@@ -97,23 +98,78 @@ export class ProductComponent implements OnInit, OnDestroy {
       if (this.slectedFiles.item(0).size > environment.imageSizeLimitInBytes) {
         alert('File size too big');
       } else {
-        this.product.imageUrl = '../../../../assets/loading.gif';
-        this.uploadPic();
+        if (this.product.imageUrl) {
+          this.deleteExistingImages().then(() => {
+            this.uploadPic();
+          }).catch(() => {
+            this.uploadPic();
+          });
+        } else {
+          this.uploadPic();
+        }
       }
     }
   }
+  deleteExistingImages() {
+    return this.storage.ref(this.product.imagePath).delete().toPromise().then(() => {
+      console.log('Success Fully Deleted Image');
+      this.storage.ref(this.product.thumbnailPath).delete().toPromise().then(() => {
+        console.log('Success Fully Deleted Thumbnail');
+      }).catch((err) => {
+        console.error(err, 'Failed to Delete Thumbnail');
+      });
+    }).catch((err) => {
+      console.error(err, 'Failed to Delete Image');
+    });
+  }
   uploadPic() {
+    this.product.imageUrl = '../../../../assets/loading.gif';
+    this.product.thumbnailUrl = '../../../../assets/loading.gif';
     const file = this.slectedFiles.item(0);
     const date = new Date();
     const time = date.getTime().toString();
     const fileName = 'IMG' + time + '.jpg';
+    const thumbName = environment.thumbnailPrefix + fileName;
     const filePath = environment.productImageUploadPath + '/' + fileName;
+    const thumbPath = environment.productImageUploadPath + '/' + thumbName;
     const fileRef = this.storage.ref(filePath);
+    const thumbRef = this.storage.ref(thumbPath);
     this.storage.upload(filePath, file).then((data) => {
       fileRef.getDownloadURL().toPromise().then((url) => {
         this.product.imageName = fileName;
         this.product.imagePath = filePath;
         this.product.imageUrl = url;
+        this.delaySvc.delay(5000).then(() => {
+          thumbRef.getDownloadURL().toPromise().then((thumbUrl) => {
+            this.product.thumbnailName = thumbName;
+            this.product.thumbnailUrl = thumbUrl;
+            this.product.thumbnailPath = thumbPath;
+          }).catch((err) => {
+            console.error(err, 'Thumb faild 1');
+            if (err.code === 'storage/object-not-found') {
+              this.delaySvc.delay(5000).then(() => {
+                thumbRef.getDownloadURL().toPromise().then((thumbUrl) => {
+                  this.product.thumbnailName = thumbName;
+                  this.product.thumbnailUrl = thumbUrl;
+                  this.product.thumbnailPath = thumbPath;
+                }).catch((err2) => {
+                  console.error(err2, 'Thumb faild 2');
+                  if (err.code === 'storage/object-not-found') {
+                    this.delaySvc.delay(5000).then(() => {
+                      thumbRef.getDownloadURL().toPromise().then((thumbUrl) => {
+                        this.product.thumbnailName = thumbName;
+                        this.product.thumbnailUrl = thumbUrl;
+                        this.product.thumbnailPath = thumbPath;
+                      }).catch((err3) => {
+                        console.error(err2, 'Thumb faild 3');
+                       });
+                    });
+                  }
+                });
+              });
+            }
+          });
+        });
       });
     });
   }

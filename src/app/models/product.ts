@@ -11,4 +11,7 @@ export class Product {
   imageUrl: string;
   imagePath: string;
   imageName: string;
+  thumbnailUrl: string;
+  thumbnailPath: string;
+  thumbnailName: string;
 }

@@ -16,7 +16,7 @@
         <th>Actions</th>
       </tr>
       <tr *ngFor="let product of products">
-        <td class="thumbnail-container"><img class="product-thumbnail" [src]="product.imageUrl" [alt]="product.name"></td>
+        <td class="thumbnail-container"><img class="product-thumbnail" [src]="product.thumbnailUrl" [alt]="product.name"></td>
         <td>{{product.id}}</td>
         <td>{{product.name}}</td>
         <td>{{product.quantity}}</td>

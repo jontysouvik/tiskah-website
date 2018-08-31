@@ -3,5 +3,6 @@ export const environment = {
   categoriesCollectionName: 'categories',
   productsCollectionName: 'products',
   imageSizeLimitInBytes: 100000,
-  productImageUploadPath: 'ProductsImages'
+  productImageUploadPath: 'ProductsImages',
+  thumbnailPrefix: 'thumb_200x200_'
 };

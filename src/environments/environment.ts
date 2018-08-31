@@ -7,7 +7,8 @@ export const environment = {
   categoriesCollectionName: 'categoriesDev',
   productsCollectionName: 'productsDev',
   imageSizeLimitInBytes: 100000,
-  productImageUploadPath: 'ProductsImagesDev'
+  productImageUploadPath: 'ProductsImagesDev',
+  thumbnailPrefix: 'thumb_200x200_'
 };
 
 /*
