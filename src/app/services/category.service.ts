@@ -40,4 +40,7 @@ export class CategoryService {
     return this.categoryObserable = this.categoryDoc.valueChanges();
     // return this.categoryObserable.toPromise();
   }
+  getAllCategories() {
+    return this.afs.collection(this.CONST_CATEGORIES_COLLECTION_NAME).valueChanges();
+  }
 }

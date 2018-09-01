@@ -4,5 +4,6 @@ export const environment = {
   productsCollectionName: 'products',
   imageSizeLimitInBytes: 100000,
   productImageUploadPath: 'ProductsImages',
-  thumbnailPrefix: 'thumb_200x200_'
+  thumbnailPrefix: 'thumb_200x200_',
+  defaultAdminRecordFetchLimit: 5
 };

@@ -15,7 +15,7 @@ export class ProductService {
   productsObserable: Observable<Product[]>;
   constructor(private dateTimeSvc: DateTimeService, private afs: AngularFirestore) {
     this.loadProducts();
-   }
+  }
   saveProduct(product: Product) {
     if (!product.id) {
       const timeStamp = this.dateTimeSvc.getTimeString();
@@ -28,8 +28,34 @@ export class ProductService {
     this.productsCollection = this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME);
     this.productsObserable = this.productsCollection.valueChanges();
   }
+  loadLast10Products() {
+    return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.orderBy('id', 'desc').limit(10)).valueChanges();
+  }
   getProduct(id: string) {
     this.productDoc = this.afs.doc(this.CONST_PRODUCTS_COLLECTION_NAME + '/' + id);
     return this.productObserable = this.productDoc.valueChanges();
+  }
+  getProductById(id: string) {
+    return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('id', '==', id)).valueChanges();
+  }
+  getProductsByCategoryId(categoryId: string, lastProductId?: string, limitTo?: number) {
+    let limit;
+    if (!limitTo) {
+      limit = environment.defaultAdminRecordFetchLimit;
+    } else {
+      limit = limitTo;
+    }
+    
+    if (lastProductId) {
+      if (categoryId === '0') {
+        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.orderBy('id', 'desc').startAfter(lastProductId).limit(limit)).valueChanges();
+      } else {
+        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('categoryId', '==', categoryId).orderBy('id', 'desc').startAfter(lastProductId).limit(limit)).valueChanges();
+      }
+
+    } else {
+      return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('categoryId', '==', categoryId).orderBy('id', 'desc').limit(limit)).valueChanges();
+    }
+
   }
 }

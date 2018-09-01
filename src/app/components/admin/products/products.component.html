@@ -1,6 +1,19 @@
 <div class="row">
   <div class="col-md-12 d-flex justify-content-around">
     <button class="btn btn-primary" (click)="onAddClick()">Add Product &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></button>
+    <input type="text" #id (keyup.enter)="getProductById(id.value)" (keyup)="handelSearchKeyUp(id.value)">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 d-flex justify-content-around">
+      <button type="button" class="btn {{selectedCategoryId === 0? 'btn-light':'btn-primary'}} btn-sm"
+      (click)="getProductsByCategory(0)">
+        All
+      </button>
+    <button *ngFor="let category of categories" type="button" class="btn {{selectedCategoryId === category.id? 'btn-light':'btn-primary'}} btn-sm"
+    (click)="getProductsByCategory(category.id)">
+      {{category.name}}
+    </button>
   </div>
 </div>
 <div id="tableDiv" class="row">
@@ -26,4 +39,10 @@
       </tr>
     </table>
   </div>
+</div>
+<div class="row">
+    <div class="col-md-12 d-flex justify-content-around">
+        <button *ngIf="!hideLoadMoreButton" class="btn btn-primary" (click)="loadMore()">Load More &nbsp; <i class="fa fa-refresh" aria-hidden="true"></i></button>
+        <span *ngIf="hideLoadMoreButton" class="text-muted">That's All for Now!!</span>
+      </div>
 </div>

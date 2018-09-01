@@ -11,18 +11,18 @@ import { PlaceholderComponent } from './components/placeholder/placeholder.compo
 import { AngularFireStorageModule } from 'angularfire2/storage';
 const config = {
   apiKey: 'AIzaSyBLmxKJs6pTHLQ4I-XnCWpDU9l7IW2-PU0',
-    authDomain: 'tiskah-website.firebaseapp.com',
-    databaseURL: 'https://tiskah-website.firebaseio.com',
-    projectId: 'tiskah-website',
-    storageBucket: 'tiskah-website.appspot.com',
-    messagingSenderId: '582975799486'
+  authDomain: 'tiskah-website.firebaseapp.com',
+  databaseURL: 'https://tiskah-website.firebaseio.com',
+  projectId: 'tiskah-website',
+  storageBucket: 'tiskah-website.appspot.com',
+  messagingSenderId: '582975799486'
 };
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MenuComponent,
-    PlaceholderComponent
+    PlaceholderComponent,
   ],
   imports: [
     BrowserModule,

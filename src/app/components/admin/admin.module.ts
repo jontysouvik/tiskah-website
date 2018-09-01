@@ -18,7 +18,8 @@ const Admin_Routes: Routes = [
           { path: 'categories', component: CategoriesComponent},
           { path: 'categories/:id', component: CategoryComponent},
           { path: 'products', component: ProductsComponent},
-          { path: 'products/:id', component: ProductComponent}
+          { path: 'products/:id', component: ProductComponent},
+          { path: 'taskrunner', component: RunTasksComponent }
 
       ]
   }

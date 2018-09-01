@@ -8,7 +8,8 @@ export const environment = {
   productsCollectionName: 'productsDev',
   imageSizeLimitInBytes: 100000,
   productImageUploadPath: 'ProductsImagesDev',
-  thumbnailPrefix: 'thumb_200x200_'
+  thumbnailPrefix: 'thumb_200x200_',
+  defaultAdminRecordFetchLimit: 5
 };
 
 /*
