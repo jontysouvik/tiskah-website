@@ -10,9 +10,11 @@ admin.initializeApp();
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   response.send("Hello from Firebase!");
-// });
+exports.updateFiterValuesForCategory = functions.https.onRequest((request, response) => {
+  console.log(request);
+  console.log(request.method);
+  response.send("Hello from Firebase!");
+});
 // exports.addSmallImage = functions.firestore
 //   .document('productsDev/{productsDevId}')
 //   .onCreate((snap, context) => {

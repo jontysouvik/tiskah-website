@@ -8,6 +8,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { CategoryComponent } from './categories/category/category.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './products/product/product.component';
+import { RunTasksComponent } from './run-tasks/run-tasks.component';
 
 const Admin_Routes: Routes = [
   {
@@ -29,6 +30,6 @@ const Admin_Routes: Routes = [
     FormsModule,
     RouterModule.forChild(Admin_Routes)
   ],
-  declarations: [AdminComponent, DashboardComponent, CategoriesComponent, CategoryComponent, ProductsComponent, ProductComponent]
+  declarations: [AdminComponent, DashboardComponent, CategoriesComponent, CategoryComponent, ProductsComponent, ProductComponent, RunTasksComponent]
 })
 export class AdminModule { }
