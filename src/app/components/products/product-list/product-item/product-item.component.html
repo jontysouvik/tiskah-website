@@ -1,0 +1,25 @@
+<div class="product-container" (mouseenter)="onMouseEnter(product)" (mouseleave)="onMouseLeave(product)">
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-center">
+      <img class="product-image" [src]="product.thumbnailUrl" alt="product.name">
+    </div>
+  </div>
+  <div class="row" *ngIf="product.isMouseIn">
+    <div class="col-md-12 d-flex justify-content-around">
+      <button class="btn btn-light btn-sm"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
+      <button class="btn btn-light btn-sm"><i class="fa fa-heart" aria-hidden="true"></i></button>
+    </div>
+  </div>
+  <div class="row" *ngIf="!product.isMouseIn">
+    <div class="col-md-12 d-flex justify-content-around">
+      <button class="btn btn-sm">{{product.name}}</button>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12 d-flex justify-content-around">
+        <button class="btn btn-sm">
+            <i class="fa fa-inr" aria-hidden="true"></i> &nbsp;
+          {{product.price}}</button>
+      </div>
+    </div>
+</div>

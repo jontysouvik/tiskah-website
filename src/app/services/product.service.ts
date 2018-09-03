@@ -58,7 +58,7 @@ export class ProductService {
     }
 
   }
-  getProductsByCategoryIdWithQuantity(categoryId: string, lastProductId?: string, limitTo?: number) {
+  getProductsByCategoryIdWithQuantity(categoryId: string, lastQuantity?: number, limitTo?: number) {
     let limit;
     if (!limitTo) {
       limit = environment.defaultAdminRecordFetchLimit;
@@ -66,11 +66,11 @@ export class ProductService {
       limit = limitTo;
     }
 
-    if (lastProductId) {
+    if (lastQuantity) {
       if (categoryId.toString() === '0') {
-        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0).orderBy('quantity', 'desc').startAfter(lastProductId).limit(limit)).valueChanges();
+        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0).orderBy('quantity', 'desc').startAfter(lastQuantity).limit(limit)).valueChanges();
       } else {
-        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0).where('categoryId', '==', categoryId).orderBy('quantity', 'desc').startAfter(lastProductId).limit(limit)).valueChanges();
+        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0).where('categoryId', '==', categoryId).orderBy('quantity', 'desc').startAfter(lastQuantity).limit(limit)).valueChanges();
       }
 
     } else {

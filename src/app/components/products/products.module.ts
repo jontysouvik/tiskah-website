@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProductComponent } from './product/product.component';
 import { ProductDashboardComponent } from './product-dashboard/product-dashboard.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { ProductItemComponent } from './product-list/product-item/product-item.component';
 const Products_Routes: Routes = [
   {
       path: '', component: ProductsComponent, children: [
@@ -24,6 +25,6 @@ const Products_Routes: Routes = [
     CommonModule,
     RouterModule.forChild(Products_Routes)
   ],
-  declarations: [ProductsComponent, ProductComponent, ProductDashboardComponent, ProductListComponent]
+  declarations: [ProductsComponent, ProductComponent, ProductDashboardComponent, ProductListComponent, ProductItemComponent]
 })
 export class ProductsModule { }
