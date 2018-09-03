@@ -20,4 +20,9 @@ export class ProductItemComponent implements OnInit {
   onMouseLeave(product) {
     product.isMouseIn = false;
   }
+  calculateDiscount() {
+    const discount = this.product.price - this.product.salePrice;
+    const discountPercent = discount / this.product.price * 100;
+    return '(' + discountPercent.toString() + '% Off)';
+  }
 }

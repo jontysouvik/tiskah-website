@@ -14,29 +14,50 @@
       </div>
       <div class="form-row">
         <div class="col-md-12 d-flex justify-content-center">
-          <button *ngIf="!product.imageUrl" class="btn btn-primary" (click)="fileInput.click()">Add Image &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></button>
-          <button *ngIf="product.imageUrl" class="btn btn-primary" (click)="fileInput.click()">Change Image &nbsp; <i class="fa fa-pencil" aria-hidden="true"></i></button>
+          <button *ngIf="!product.imageUrl" class="btn btn-primary" (click)="fileInput.click()">Add Image &nbsp; <i class="fa fa-plus"
+              aria-hidden="true"></i></button>
+          <button *ngIf="product.imageUrl" class="btn btn-primary" (click)="fileInput.click()">Change Image &nbsp; <i class="fa fa-pencil"
+              aria-hidden="true"></i></button>
           <input #fileInput type="file" (change)="chooseFiles($event)" style="display: none">
         </div>
       </div>
-      <div class="form-row">
+      <div class="form-row mt-3">
         <div class="col-md-8 mb-3">
-            <label for="prodName">Product Name</label>
-            <input type="text" name="prodName" class="form-control" id="prodName" [(ngModel)]="product.name">
+          <!-- <label for="prodName">Product Name</label> -->
+          <input type="text" name="prodName" placeholder="Product Name" class="form-control" id="prodName" [(ngModel)]="product.name">
         </div>
         <div class="col-md-4 mb-3">
-            <label for="prodPrice">Price</label>
-            <input type="number" name="prodPrice" class="form-control" id="prodPrice" [(ngModel)]="product.price">
+          <!-- <label for="prodPrice">Price</label> -->
+          <input placeholder="Price" type="number" name="prodPrice" class="form-control" id="prodPrice" [(ngModel)]="product.price">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-12 mb-3">
+          <textarea placeholder="Description" name="txtDescription" class="form-control" id="txtDescription" cols="30" rows="3" [(ngModel)]="product.description"></textarea>
         </div>
       </div>
       <div class="form-row">
         <div class="col-md-8 mb-3">
-          <label for="txtCompany">Company</label>
-          <input type="text" class="form-control" id="txtCompany" name="txtCompany" [(ngModel)]="product.company">
+          <!-- <label for="txtCompany">Company</label> -->
+          <input placeholder="Company" type="text" class="form-control" id="txtCompany" name="txtCompany" [(ngModel)]="product.company">
         </div>
         <div class="col-md-4 mb-3">
-          <label for="txtQty">Quantity</label>
-          <input type="number" class="form-control" id="txtQty" name="txtQty" [(ngModel)]="product.quantity">
+          <!-- <label for="txtQty">Quantity</label> -->
+          <input placeholder="Quantity" type="number" class="form-control" id="txtQty" name="txtQty" [(ngModel)]="product.quantity">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-5"></div>
+        <div class="col-md-4 mb-3">
+          <input type="checkbox" class="form-check-input" id="chkOnSale" [(ngModel)]="product.isOnSale">
+          <label class="form-check-label" for="chkOnSale">On Sale</label>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 mb-3" *ngIf="product.isOnSale">
+          <!-- <label for="txtSalePrice">Sale Price</label> -->
+          <input placeholder="Sale Price" type="number" class="form-control" id="txtSalePrice" name="txtSalePrice" [(ngModel)]="product.salePrice">
         </div>
       </div>
       <div class="form-group">
@@ -49,8 +70,8 @@
         Add Comma (,) Separated Values
       </small>
       <div class="form-group" *ngFor="let filter of selectedCategory?.filters">
-        <label for="prodId">{{filter.name}}</label>
-        <input type="text" name="prodId" class="form-control" id="prodId" [(ngModel)]="filter.value">
+        <!-- <label for="prodId">{{filter.name}}</label> -->
+        <input placeholder="{{filter.name}}" type="text" name="prodId" class="form-control" id="prodId" [(ngModel)]="filter.value">
       </div>
 
       <div class="d-flex justify-content-between">

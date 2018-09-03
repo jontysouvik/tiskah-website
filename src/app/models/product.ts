@@ -1,9 +1,12 @@
 export class Product {
   id: string;
   name: string;
+  description: string;
   company: string;
   quantity: number;
   price: number;
+  isOnSale: boolean;
+  salePrice: number;
   filters: string;
   timestamp: string;
   categoryId: string;

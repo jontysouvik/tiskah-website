@@ -76,6 +76,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.product.categoryId = this.selectedCategory.id;
     this.product.categoryName = this.selectedCategory.name;
     this.product.filters = JSON.stringify(this.selectedCategory.filters);
+    console.log(this.product);
     this.productSvc.saveProduct(this.product).then((res) => {
       this.router.navigate(['/admin', 'products']);
     });
