@@ -9,7 +9,8 @@ export const environment = {
   imageSizeLimitInBytes: 100000,
   productImageUploadPath: 'ProductsImagesDev',
   thumbnailPrefix: 'thumb_200x200_',
-  defaultAdminRecordFetchLimit: 5
+  defaultAdminRecordFetchLimit: 5,
+  userCollectionName: 'usersDev'
 };
 
 /*

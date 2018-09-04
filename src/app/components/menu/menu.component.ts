@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit, OnDestroy {
   userAuthSubscription: Subscription;
   user: any;
-  userFirstName: string;
+  userFirstName = 'Tiskah Customer';
   constructor(private authSvc: AuthService, private router: Router) {
   }
 
@@ -20,15 +20,17 @@ export class MenuComponent implements OnInit, OnDestroy {
       (user) => {
         if (user) {
           // this.userDetails = user;
-          console.log('authState Changed');
           console.log(user);
           this.user = user;
-          if (user.displayName.indexOf(' ') > -1) {
-            this.userFirstName = user.displayName.split(' ')[0];
+          if (user.displayName) {
+            if (user.displayName.indexOf(' ') > -1) {
+              this.userFirstName = user.displayName.split(' ')[0];
+            } else {
+              this.userFirstName = user.displayName;
+            }
           } else {
-            this.userFirstName = user.displayName;
+            this.userFirstName = this.authSvc.tempUserFirstName;
           }
-
         } else {
           console.log('authState is Null');
           // this.userDetails = null;

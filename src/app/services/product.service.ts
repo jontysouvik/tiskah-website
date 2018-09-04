@@ -48,13 +48,16 @@ export class ProductService {
 
     if (lastProductId) {
       if (categoryId === '0') {
-        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.orderBy('id', 'desc').startAfter(lastProductId).limit(limit)).valueChanges();
+        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref
+          .orderBy('id', 'desc').startAfter(lastProductId).limit(limit)).valueChanges();
       } else {
-        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('categoryId', '==', categoryId).orderBy('id', 'desc').startAfter(lastProductId).limit(limit)).valueChanges();
+        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('categoryId', '==', categoryId)
+        .orderBy('id', 'desc').startAfter(lastProductId).limit(limit)).valueChanges();
       }
 
     } else {
-      return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('categoryId', '==', categoryId).orderBy('id', 'desc').limit(limit)).valueChanges();
+      return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('categoryId', '==', categoryId)
+      .orderBy('id', 'desc').limit(limit)).valueChanges();
     }
 
   }
@@ -68,18 +71,22 @@ export class ProductService {
 
     if (lastQuantity) {
       if (categoryId.toString() === '0') {
-        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0).orderBy('quantity', 'desc').startAfter(lastQuantity).limit(limit)).valueChanges();
+        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0)
+        .orderBy('quantity', 'desc').startAfter(lastQuantity).limit(limit)).valueChanges();
       } else {
-        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0).where('categoryId', '==', categoryId).orderBy('quantity', 'desc').startAfter(lastQuantity).limit(limit)).valueChanges();
+        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0)
+        .where('categoryId', '==', categoryId).orderBy('quantity', 'desc').startAfter(lastQuantity).limit(limit)).valueChanges();
       }
 
     } else {
       console.log('Came to else');
       console.log(categoryId);
       if (categoryId.toString() === '0') {
-        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0).orderBy('quantity', 'desc').limit(limit)).valueChanges();
+        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0)
+        .orderBy('quantity', 'desc').limit(limit)).valueChanges();
       } else {
-        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0).where('categoryId', '==', categoryId).orderBy('quantity', 'desc').limit(limit)).valueChanges();
+        return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0)
+        .where('categoryId', '==', categoryId).orderBy('quantity', 'desc').limit(limit)).valueChanges();
       }
 
     }
