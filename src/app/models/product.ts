@@ -17,4 +17,5 @@ export class Product {
   thumbnailUrl: string;
   thumbnailPath: string;
   thumbnailName: string;
+  routeFriendlyName: string;
 }

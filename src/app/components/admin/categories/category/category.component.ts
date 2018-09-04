@@ -3,6 +3,7 @@ import { Category } from '../../../../models/category';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../../../../services/category.service';
 import { Filter } from '../../../../models/filter';
+import { UtilitiesService } from '../../../../services/utilities.service';
 
 @Component({
   selector: 'app-category',
@@ -13,7 +14,7 @@ export class CategoryComponent implements OnInit {
   category: Category;
   filter: string;
   constructor(private router: Router, private activeRoute: ActivatedRoute,
-    private categorySvc: CategoryService) {
+    private categorySvc: CategoryService, private utilSvc: UtilitiesService) {
   }
 
   ngOnInit() {
@@ -29,6 +30,7 @@ export class CategoryComponent implements OnInit {
     });
   }
   onSaveClick() {
+    this.category.routeFriendlyName = this.utilSvc.getRouteFirendlyName(this.category.name)
     this.categorySvc.saveCategory(this.category).then((res) => {
       this.router.navigate(['/admin', 'categories']);
     }).catch((reason) => {

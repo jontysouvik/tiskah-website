@@ -8,6 +8,7 @@ import { AngularFireStorage } from 'angularfire2/storage';
 import { environment } from '../../../../../environments/environment';
 import { ProductService } from '../../../../services/product.service';
 import { DelayService } from '../../../../services/delay.service';
+import { UtilitiesService } from '../../../../services/utilities.service';
 
 @Component({
   selector: 'app-product',
@@ -25,7 +26,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   activeRouteSubscription: Subscription;
   slectedFiles: FileList;
   constructor(private router: Router, private categoriesSvc: CategoryService, private storage: AngularFireStorage,
-    private productSvc: ProductService, private activeRoute: ActivatedRoute, private delaySvc: DelayService) {
+    private productSvc: ProductService, private activeRoute: ActivatedRoute, private delaySvc: DelayService, private utilSvc: UtilitiesService) {
     this.product = new Product();
   }
 
@@ -76,6 +77,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.product.categoryId = this.selectedCategory.id;
     this.product.categoryName = this.selectedCategory.name;
     this.product.filters = JSON.stringify(this.selectedCategory.filters);
+    this.product.routeFriendlyName = this.utilSvc.getRouteFirendlyName(this.product.name);
     console.log(this.product);
     this.productSvc.saveProduct(this.product).then((res) => {
       this.router.navigate(['/admin', 'products']);

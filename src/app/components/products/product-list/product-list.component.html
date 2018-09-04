@@ -1,5 +1,12 @@
 <div class="row">
-  <div class="col-md-3 d-sm-none d-md-block d-none"></div>
+  <div class="col-md-3 d-sm-none d-md-block d-none">
+    <div class="row" *ngFor="let filter of productFiters">
+      <div class="col-md-12">
+        <strong>{{filter.name}}</strong>
+        <span *ngFor="let value of filter.value">{{value}}</span>
+      </div>
+    </div>
+  </div>
   <div class="col-md-9">
     <div class="row">
       <div *ngFor="let product of products" class="col-md-4 col-sm-6 col-6">

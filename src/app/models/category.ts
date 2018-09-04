@@ -5,4 +5,5 @@ export class Category {
   public name: string;
   public timestamp: string;
   public filters: Filter[] = [];
+  public routeFriendlyName: string;
 }
