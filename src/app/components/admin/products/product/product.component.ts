@@ -26,7 +26,8 @@ export class ProductComponent implements OnInit, OnDestroy {
   activeRouteSubscription: Subscription;
   slectedFiles: FileList;
   constructor(private router: Router, private categoriesSvc: CategoryService, private storage: AngularFireStorage,
-    private productSvc: ProductService, private activeRoute: ActivatedRoute, private delaySvc: DelayService, private utilSvc: UtilitiesService) {
+    private productSvc: ProductService, private activeRoute: ActivatedRoute, private delaySvc: DelayService,
+    private utilSvc: UtilitiesService) {
     this.product = new Product();
   }
 

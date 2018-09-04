@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit, OnDestroy {
   userAuthSubscription: Subscription;
   user: any;
+  userFirstName: string;
   constructor(private authSvc: AuthService, private router: Router) {
   }
 
@@ -22,6 +23,12 @@ export class MenuComponent implements OnInit, OnDestroy {
           console.log('authState Changed');
           console.log(user);
           this.user = user;
+          if (user.displayName.indexOf(' ') > -1) {
+            this.userFirstName = user.displayName.split(' ')[0];
+          } else {
+            this.userFirstName = user.displayName;
+          }
+
         } else {
           console.log('authState is Null');
           // this.userDetails = null;

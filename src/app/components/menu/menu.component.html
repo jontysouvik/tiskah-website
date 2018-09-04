@@ -10,31 +10,35 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav nav-fill w-100">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="#">Our Story</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/']">Shop</a>
+            <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/shop']">Shop</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/admin']">Admin</a>
+            <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/admin']">Admin</a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" *ngIf="user" [routerLink]="['/user']">{{user.displayName}}</a>
           </li> -->
-          <li class="nav-item dropdown" *ngIf="user">
+          <li class="nav-item dropdown" *ngIf="user" [routerLinkActive]="'active'">
               <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{user.displayName}}
+                {{userFirstName}}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" [routerLink]="['/user']">Dashboard</a>
-                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" [routerLinkActive]="'active'" [routerLink]="['/user', 'profile']">Profile</a>
+                <a class="dropdown-item" [routerLinkActive]="'active'" href="#">Orders</a>
+                <a class="dropdown-item" [routerLinkActive]="'active'" href="#">Wishlist</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" (click)="signOut()">Sign Out</a>
               </div>
             </li>
+            <li class="nav-item"  *ngIf="user" >
+                <a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['/user', 'cart']"><i class="fa fa-shopping-cart" aria-hidden="true"></i> 2</a>
+              </li>
           <li class="nav-item">
-            <a class="nav-link" *ngIf="!user" [routerLink]="['/user', 'auth']">Login</a>
+            <a class="nav-link" *ngIf="!user" [routerLinkActive]="'active'" [routerLink]="['/user', 'auth']">Login</a>
           </li>
         </ul>
       </div>

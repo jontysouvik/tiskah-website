@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UtilitiesService {
-
+  routeHistory: string[] = [];
   constructor() { }
   public getRouteFirendlyName(name: string) {
     if (!name) {
@@ -27,5 +27,37 @@ export class UtilitiesService {
       name = name.substring(0, name.length - 1);
     }
     return name;
+  }
+  public addRouteToHistory(url: string) {
+    if (this.routeHistory.length > 5) {
+      this.routeHistory.splice(0, 1);
+    }
+    if (!url.includes('/user/auth')) {
+      this.routeHistory.push(url);
+    }
+    console.log(this.routeHistory);
+  }
+  public getLastRoute() {
+    return this.routeHistory[this.routeHistory.length - 1];
+  }
+  public getLastRouteAsArray() {
+    const lastRoute = this.routeHistory[this.routeHistory.length - 1];
+    const returnRouteArray = [];
+    if (lastRoute.startsWith('/') && lastRoute.length === 1) {
+      returnRouteArray.push('/');
+    }
+    if (lastRoute.startsWith('/') && lastRoute.length > 1) {
+      const routeSegements = lastRoute.split('/');
+      for (let routeIndex = 0; routeIndex < routeSegements.length; routeIndex++) {
+        let segment = routeSegements[routeIndex];
+        if (segment) {
+          if (returnRouteArray.length === 0) {
+            segment = '/' + segment;
+          }
+          returnRouteArray.push(segment);
+        }
+      }
+    }
+    return returnRouteArray;
   }
 }

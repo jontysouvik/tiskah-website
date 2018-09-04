@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
+import { UtilitiesService } from '../../../../services/utilities.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,7 +12,7 @@ import { AuthService } from '../../../../services/auth.service';
 export class SignInComponent implements OnInit {
   email: string;
   password: string;
-  constructor(private router: Router, private authSvc: AuthService) { }
+  constructor(private router: Router, private authSvc: AuthService, private utilSvc: UtilitiesService) { }
 
   ngOnInit() {
   }
@@ -19,10 +20,13 @@ export class SignInComponent implements OnInit {
     console.log(form);
     this.authSvc.signinWithEmailAndPassword(form.value.email, form.value.password).then((res) => {
       console.log(res);
-      this.router.navigate(['/']);
+      this.onCancel();
     });
   }
   goToSignUp() {
     this.router.navigate(['/user', 'auth', 'signup']);
+  }
+  onCancel() {
+    this.router.navigate(this.utilSvc.getLastRouteAsArray());
   }
 }
