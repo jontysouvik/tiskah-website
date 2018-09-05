@@ -1,6 +1,7 @@
 <div class="container" *ngIf="isProductionReady">
   <app-menu></app-menu>
   <router-outlet></router-outlet>
+  <app-loading></app-loading>
 </div>
 <div *ngIf="!isProductionReady">
     <app-placeholder></app-placeholder>
