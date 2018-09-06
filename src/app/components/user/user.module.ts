@@ -7,6 +7,7 @@ import { CartComponent } from './cart/cart.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddressesComponent } from './addresses/addresses.component';
 import { AddressComponent } from './addresses/address/address.component';
+import { FormsModule } from '@angular/forms';
 const User_Routes: Routes = [
   {
     path: '', component: UserComponent, children: [
@@ -21,7 +22,7 @@ const User_Routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    // AuthModule,
+    FormsModule,
     RouterModule.forChild(User_Routes)
   ],
   declarations: [UserComponent, CartComponent, ProfileComponent, AddressesComponent, AddressComponent]

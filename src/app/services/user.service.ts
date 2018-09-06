@@ -14,12 +14,12 @@ import { DelayService } from './delay.service';
 export class UserService {
   authSubscription: Subscription;
   userSubscription: Subscription;
-  userDocument: AngularFirestoreDocument<User>
-  userDataObserable: Observable<User>
+  userDocument: AngularFirestoreDocument<User>;
+  userDataObserable: Observable<User>;
   userDataEventEmmiter: EventEmitter<User>;
   public CONST_USER_COLLECTION_NAME = environment.userCollectionName;
   public userDetails: User;
-  constructor(private authSvc: AuthService, private afs: AngularFirestore, private delaySvc : DelayService) {
+  constructor(private authSvc: AuthService, private afs: AngularFirestore, private delaySvc: DelayService) {
     this.userDetails = new User();
     this.userDataObserable = new Observable<User>();
     this.userDataEventEmmiter = new EventEmitter<User>();
@@ -35,7 +35,7 @@ export class UserService {
     });
   }
   getUser(user) {
-    console.log(this.CONST_USER_COLLECTION_NAME + '/' + user.uid, ' Get User')
+    console.log(this.CONST_USER_COLLECTION_NAME + '/' + user.uid, ' Get User');
     this.userDocument = this.afs.doc(this.CONST_USER_COLLECTION_NAME + '/' + user.uid);
     this.userDataObserable = this.userDocument.valueChanges();
     this.userSubscription = this.userDataObserable.subscribe((res: User) => {
@@ -46,18 +46,28 @@ export class UserService {
     });
   }
   addItemToCart(item: CartItem) {
-    this.userDetails.cart.push(item)
+    this.userDetails.cart.push(item);
     return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid).set(JSON.parse(JSON.stringify(this.userDetails)));
   }
   addAddress(adress: Address) {
     if (!adress.id) {
       adress.id = new Date().getTime();
     }
-    this.userDetails.addresses.push(adress)
+    this.userDetails.addresses.push(adress);
     return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid).set(JSON.parse(JSON.stringify(this.userDetails)));
   }
   addItemToWishList(item: CartItem) {
-    this.userDetails.wishList.push(item)
+    this.userDetails.wishList.push(item);
+    return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid).set(JSON.parse(JSON.stringify(this.userDetails)));
+  }
+  removeItemFromCart(item: CartItem) {
+    for (let index = 0; index < this.userDetails.cart.length; index++) {
+      const itemFromCart = this.userDetails.cart[index];
+      if (itemFromCart.productId === item.productId) {
+          this.userDetails.cart.splice(index, 1);
+          break;
+      }
+    }
     return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid).set(JSON.parse(JSON.stringify(this.userDetails)));
   }
 }
