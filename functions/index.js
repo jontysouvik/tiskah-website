@@ -10,14 +10,26 @@ admin.initializeApp();
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
-exports.updateFiterValuesForCategory = functions.https.onRequest((request, response) => {
+exports.getQuantityForProducts = functions.https.onRequest((request, response) => {
   console.log(request);
   console.log(request.method);
-  response.send("Hello from Firebase!");
+  console.log(request.body)
+  if (request.method === 'POST') {
+    const productIds = request.body.productIds;
+    let docRefarray = [];
+    for (let index = 0; index < productIds.length; index++) {
+      const productId = productIds[index];
+      docRefarray.push(admin.firestore().collection('productsDev').doc(productId));
+    }
+    admin.firestore().getAll(docRefarray).then((docs) => {
+      const retarray = [];
+      docs.forEach(doc => {
+        retarray.push(doc.data());
+      });
+      response.send(retarray);
+    });
+  }
 });
-exports.addUser = functions.auth.user().onCreate((user) => {
-  console.log(user);
-})
 exports.addThumbNail = functions.storage.object().onFinalize((object) => {
   console.log(object);
 

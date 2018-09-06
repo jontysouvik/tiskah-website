@@ -31,6 +31,7 @@ const Admin_Routes: Routes = [
     FormsModule,
     RouterModule.forChild(Admin_Routes)
   ],
-  declarations: [AdminComponent, DashboardComponent, CategoriesComponent, CategoryComponent, ProductsComponent, ProductComponent, RunTasksComponent]
+  declarations: [AdminComponent, DashboardComponent, CategoriesComponent, CategoryComponent,
+     ProductsComponent, ProductComponent, RunTasksComponent]
 })
 export class AdminModule { }

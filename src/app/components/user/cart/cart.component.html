@@ -9,13 +9,16 @@
       </div>
       <div class="col-md-8">
         <div>
-          <strong>{{item.productName}}</strong><br>
+          <strong>{{item.productName}}</strong><strong *ngIf="item.isInStock">Out of stock</strong><br>
           <span>{{item.description}}</span><br>
-          <select [(ngModel)]="item.orderQuantity">
+          <span><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{item.price}}</span><br>
+          <select [(ngModel)]="item.orderQuantity" [disabled]="!item.isEditable">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
           </select>
+          <button class="btn btn-link" *ngIf="!item.isEditable" (click)="item.isEditable = true">Change</button>
+          <button class="btn btn-link" *ngIf="item.isEditable" (click)="checkQuantityandUpdateValue(item)">Confirm</button>
         </div>
       </div>
       <div class="col-md-2">
@@ -27,6 +30,8 @@
     </div>
   </div>
   <div class="col-md-4">
-    Checkout
+    <strong>Total Cart Value</strong><br>
+    <span><i class="fa fa-inr" aria-hidden="true"></i> {{totalCartValue}}</span><br>
+    <button class="btn btn-primary" (click)="checkout()">Checkout <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
   </div>
 </div>
