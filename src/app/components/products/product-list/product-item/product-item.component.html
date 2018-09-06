@@ -6,8 +6,9 @@
   </div>
   <div class="row" *ngIf="product.isMouseIn">
     <div class="col-md-12 d-flex justify-content-around">
-      <button class="btn btn-light btn-sm"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
-      <button class="btn btn-light btn-sm"><i class="fa fa-heart" aria-hidden="true"></i></button>
+      <button class="btn btn-light btn-sm" (click)="addToCart(product)" *ngIf="!isInCart(product)"><i class="fa fa-cart-plus"
+          aria-hidden="true"></i></button>
+      <button class="btn btn-light btn-sm" (click)="addToWishlist(product)"><i class="fa fa-heart {{isInWishList(product)?'red-color':''}}" aria-hidden="true"></i></button>
     </div>
   </div>
   <div class="row" *ngIf="!product.isMouseIn">

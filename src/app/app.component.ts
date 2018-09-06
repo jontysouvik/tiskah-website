@@ -18,11 +18,11 @@ export class AppComponent {
     this.router.events.subscribe((event: Event) => {
 
       if (event instanceof NavigationStart) {
-        console.log(event, 'NavigationStart');
+        // console.log(event, 'NavigationStart');
       }
 
       if (event instanceof NavigationEnd) {
-        console.log(event, 'NavigationEnd');
+        // console.log(event, 'NavigationEnd');
         this.utilSvc.addRouteToHistory(event.url);
       }
 

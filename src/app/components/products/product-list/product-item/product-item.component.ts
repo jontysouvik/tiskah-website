@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../../../models/product';
+import { UserService } from '../../../../services/user.service';
+import { CartItem } from '../../../../models/cart-item';
 
 @Component({
   selector: 'app-product-item',
@@ -10,7 +12,7 @@ export class ProductItemComponent implements OnInit {
 
   @Input()
   product: Product;
-  constructor() { }
+  constructor(private userSvc: UserService) { }
 
   ngOnInit() {
   }
@@ -24,5 +26,47 @@ export class ProductItemComponent implements OnInit {
     const discount = this.product.price - this.product.salePrice;
     const discountPercent = discount / this.product.price * 100;
     return '(' + discountPercent.toString() + '% Off)';
+  }
+  addToCart(product) {
+    const cartItem = new CartItem()
+    cartItem.productId = product.id;
+    cartItem.productName = product.name;
+    cartItem.thumbUrl = product.thumbnailUrl;
+    cartItem.description = product.description;
+    cartItem.price = product.isOnSale ? product.salePrice : product.price;
+    cartItem.orderQuantity = 1;
+    this.userSvc.addItemToCart(cartItem);
+  } 
+  addToWishlist(product) {
+    if(!this.isInWishList(product)) {
+      const cartItem = new CartItem()
+      cartItem.productId = product.id;
+      cartItem.productName = product.name;
+      cartItem.thumbUrl = product.thumbnailUrl;
+      cartItem.description = product.description;
+      cartItem.price = product.isOnSale ? product.salePrice : product.price;
+      cartItem.orderQuantity = 1;
+      this.userSvc.addItemToWishList(cartItem);
+    }
+  }
+  isInCart(product) {
+    product.inCart = false;
+    for (let index = 0; index < this.userSvc.userDetails.cart.length; index++) {
+      const cartItem = this.userSvc.userDetails.cart[index];
+      if (cartItem.productId === product.id) {
+        product.inCart = true;
+      }
+    }
+    return product.inCart;
+  }
+  isInWishList(product) {
+    product.inWishList = false;
+    for (let index = 0; index < this.userSvc.userDetails.wishList.length; index++) {
+      const cartItem = this.userSvc.userDetails.wishList[index];
+      if (cartItem.productId === product.id) {
+        product.inWishList = true;
+      }
+    }
+    return product.inWishList;
   }
 }

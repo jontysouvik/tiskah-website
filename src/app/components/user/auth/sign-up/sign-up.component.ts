@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../../../services/auth.service';
 import { User } from '../../../../models/user';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,7 +12,7 @@ import { User } from '../../../../models/user';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor(private router: Router, private authSvc: AuthService) { }
+  constructor(private router: Router, private authSvc: AuthService, private userSvc: UserService) { }
 
   ngOnInit() {
   }
@@ -33,6 +34,7 @@ export class SignUpComponent implements OnInit {
         newUser.email = res.user.email;
         this.authSvc.addNewUserData(newUser).then((newUserRes) => {
           console.log(newUserRes, 'After newUserRes');
+          this.userSvc.getUser(res.user);
           this.authSvc.sendVerificationEmail().then((emailres) => {
             console.log(emailres, 'After sending email');
             this.router.navigate(['/']);

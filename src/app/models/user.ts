@@ -7,4 +7,5 @@ export class User {
   public fullName: string;
   public addresses: Address[] = [];
   public cart: CartItem[] = [];
+  public wishList: CartItem[] = [];
 }
