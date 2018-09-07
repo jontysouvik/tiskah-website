@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../../../models/product';
 import { UserService } from '../../../../services/user.service';
 import { CartItem } from '../../../../models/cart-item';
+import { AuthService } from '../../../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-item',
@@ -12,7 +14,17 @@ export class ProductItemComponent implements OnInit {
 
   @Input()
   product: Product;
-  constructor(private userSvc: UserService) { }
+  authSubscription: Subscription;
+  isLoggedin = false;
+  constructor(private userSvc: UserService, private authSvc: AuthService) {
+    this.authSubscription = this.authSvc.userObservable.subscribe((user) => {
+      if (user) {
+        this.isLoggedin = true;
+      } else {
+        this.isLoggedin = false;
+      }
+    });
+  }
 
   ngOnInit() {
   }
@@ -28,7 +40,7 @@ export class ProductItemComponent implements OnInit {
     return '(' + discountPercent.toString() + '% Off)';
   }
   addToCart(product) {
-    const cartItem = new CartItem()
+    const cartItem = new CartItem();
     cartItem.productId = product.id;
     cartItem.productName = product.name;
     cartItem.thumbUrl = product.thumbnailUrl;
@@ -36,10 +48,10 @@ export class ProductItemComponent implements OnInit {
     cartItem.price = product.isOnSale ? product.salePrice : product.price;
     cartItem.orderQuantity = 1;
     this.userSvc.addItemToCart(cartItem);
-  } 
+  }
   addToWishlist(product) {
-    if(!this.isInWishList(product)) {
-      const cartItem = new CartItem()
+    if (!this.isInWishList(product)) {
+      const cartItem = new CartItem();
       cartItem.productId = product.id;
       cartItem.productName = product.name;
       cartItem.thumbUrl = product.thumbnailUrl;

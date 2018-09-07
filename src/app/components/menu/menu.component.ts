@@ -16,6 +16,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   user: any;
   userFirstName = 'Tiskah Customer';
   carItemCount = 0;
+  wishListItemCount = 0;
   constructor(private authSvc: AuthService, private router: Router, private userSvc: UserService) {
   }
 
@@ -23,8 +24,6 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.userAuthSubscription = this.authSvc.userObservable.subscribe(
       (user) => {
         if (user) {
-          // this.userDetails = user;
-          console.log(user);
           this.user = user;
           if (user.displayName) {
             console.log(this.userSvc.userDetails);
@@ -37,18 +36,15 @@ export class MenuComponent implements OnInit, OnDestroy {
             this.userFirstName = this.authSvc.tempUserFirstName;
           }
         } else {
-          console.log('authState is Null');
-          // this.userDetails = null;
           this.user = null;
         }
-        console.log('event emmiter fired');
-        // this.userChangeEvent.emit(this.userDetails);
       }
     );
     this.userDataSubscription = this.userSvc.userDataEventEmmiter.subscribe((res: User) => {
       console.log(res, 'From Menu');
       this.carItemCount = res.cart.length;
-    })
+      this.wishListItemCount = res.wishList.length;
+    });
   }
   ngOnDestroy(): void {
     this.userAuthSubscription.unsubscribe();

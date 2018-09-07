@@ -10,10 +10,23 @@ admin.initializeApp();
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
-exports.getQuantityForProducts = functions.https.onRequest((request, response) => {
+exports.getProductsByIds = functions.https.onRequest((request, response) => {
   console.log(request);
   console.log(request.method);
   console.log(request.body)
+  if (request.method === 'OPTIONS') {
+    console.log('!OPTIONS');
+    var headers = {};
+    // IE8 does not allow domains to be specified, just the *
+    // headers["Access-Control-Allow-Origin"] = req.headers.origin;
+    headers["Access-Control-Allow-Origin"] = "*";
+    headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+    headers["Access-Control-Allow-Credentials"] = false;
+    headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+    headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+    response.writeHead(200, headers);
+    response.end();
+  }
   if (request.method === 'POST') {
     const productIds = request.body.productIds;
     let docRefarray = [];
@@ -26,7 +39,9 @@ exports.getQuantityForProducts = functions.https.onRequest((request, response) =
       docs.forEach(doc => {
         retarray.push(doc.data());
       });
-      response.send(retarray);
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST')
+    response.status(200).send(retarray);
     });
   }
 });

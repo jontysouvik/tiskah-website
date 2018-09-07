@@ -5,10 +5,14 @@
     </div>
   </div>
   <div class="row" *ngIf="product.isMouseIn">
-    <div class="col-md-12 d-flex justify-content-around">
+    <div class="col-md-12 d-flex justify-content-around" *ngIf="isLoggedin">
       <button class="btn btn-light btn-sm" (click)="addToCart(product)" *ngIf="!isInCart(product)"><i class="fa fa-cart-plus"
           aria-hidden="true"></i></button>
-      <button class="btn btn-light btn-sm" (click)="addToWishlist(product)"><i class="fa fa-heart {{isInWishList(product)?'red-color':''}}" aria-hidden="true"></i></button>
+      <button class="btn btn-light btn-sm" (click)="addToWishlist(product)"><i class="fa fa-heart {{isInWishList(product)?'red-color':''}}"
+          aria-hidden="true"></i></button>
+    </div>
+    <div class="col-md-12 d-flex justify-content-around" *ngIf="!isLoggedin">
+      please log in
     </div>
   </div>
   <div class="row" *ngIf="!product.isMouseIn">
@@ -29,8 +33,6 @@
           <i class="fa fa-inr" aria-hidden="true"></i> &nbsp; {{product.price}}
         </button>
       </div>
-
-
     </div>
   </div>
 </div>

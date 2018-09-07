@@ -4,6 +4,7 @@ import { Product } from '../models/product';
 import { DateTimeService } from './date-time.service';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,7 @@ export class ProductService {
   productDoc: AngularFirestoreDocument<Product>;
   productObserable: Observable<Product>;
   productsObserable: Observable<Product[]>;
-  constructor(private dateTimeSvc: DateTimeService, private afs: AngularFirestore) {
+  constructor(private dateTimeSvc: DateTimeService, private afs: AngularFirestore, private httpClient: HttpClient) {
     this.loadProducts();
   }
   saveProduct(product: Product) {
@@ -52,12 +53,12 @@ export class ProductService {
           .orderBy('id', 'desc').startAfter(lastProductId).limit(limit)).valueChanges();
       } else {
         return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('categoryId', '==', categoryId)
-        .orderBy('id', 'desc').startAfter(lastProductId).limit(limit)).valueChanges();
+          .orderBy('id', 'desc').startAfter(lastProductId).limit(limit)).valueChanges();
       }
 
     } else {
       return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('categoryId', '==', categoryId)
-      .orderBy('id', 'desc').limit(limit)).valueChanges();
+        .orderBy('id', 'desc').limit(limit)).valueChanges();
     }
 
   }
@@ -72,23 +73,25 @@ export class ProductService {
     if (lastQuantity) {
       if (categoryId.toString() === '0') {
         return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0)
-        .orderBy('quantity', 'desc').startAfter(lastQuantity).limit(limit)).valueChanges();
+          .orderBy('quantity', 'desc').startAfter(lastQuantity).limit(limit)).valueChanges();
       } else {
         return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0)
-        .where('categoryId', '==', categoryId).orderBy('quantity', 'desc').startAfter(lastQuantity).limit(limit)).valueChanges();
+          .where('categoryId', '==', categoryId).orderBy('quantity', 'desc').startAfter(lastQuantity).limit(limit)).valueChanges();
       }
 
     } else {
-      console.log('Came to else');
-      console.log(categoryId);
       if (categoryId.toString() === '0') {
         return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0)
-        .orderBy('quantity', 'desc').limit(limit)).valueChanges();
+          .orderBy('quantity', 'desc').limit(limit)).valueChanges();
       } else {
         return this.afs.collection(this.CONST_PRODUCTS_COLLECTION_NAME, ref => ref.where('quantity', '>', 0)
-        .where('categoryId', '==', categoryId).orderBy('quantity', 'desc').limit(limit)).valueChanges();
+          .where('categoryId', '==', categoryId).orderBy('quantity', 'desc').limit(limit)).valueChanges();
       }
 
     }
+  }
+  getProductsByIds(ids: string[]) {
+    const body = { productIds: ids };
+    return this.httpClient.post('https://us-central1-tiskah-website.cloudfunctions.net/getProductsByIds', body).toPromise();
   }
 }

@@ -1,6 +1,25 @@
-.row{
+.row {
   padding-top: 2%;
 }
-.item-row{
+
+.item-row {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.out-of-stock {
+  opacity: 0.5;
+}
+
+.red {
+  color: #dc3545;
+}
+
+#outOfStock {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding-left: 15%;
 }

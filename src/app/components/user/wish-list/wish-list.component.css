@@ -1,0 +1,20 @@
+#outOfStock {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  top: 0px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding-left: 15%;
+}
+
+.out-of-stock {
+  opacity: 0.5;
+}
+
+.row {
+  padding-top: 2%;
+}
+
+.item-row {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}

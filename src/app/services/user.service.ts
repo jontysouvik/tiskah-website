@@ -27,7 +27,8 @@ export class UserService {
       if (user) {
         this.getUser(user);
       } else {
-        this.authSubscription.unsubscribe();
+        this.userDetails = null;
+        this.userDetails = new User();
         if (this.userSubscription) {
           this.userSubscription.unsubscribe();
         }
@@ -39,15 +40,30 @@ export class UserService {
     this.userDocument = this.afs.doc(this.CONST_USER_COLLECTION_NAME + '/' + user.uid);
     this.userDataObserable = this.userDocument.valueChanges();
     this.userSubscription = this.userDataObserable.subscribe((res: User) => {
-      console.log(res, 'From User service');
-      // this.userDataEventEmmiter = new EventEmitter<User>();
       this.userDataEventEmmiter.emit(res);
       this.userDetails = res;
     });
   }
   addItemToCart(item: CartItem) {
-    this.userDetails.cart.push(item);
-    return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid).set(JSON.parse(JSON.stringify(this.userDetails)));
+    let isItemInCart = false;
+    for (let index = 0; index < this.userDetails.cart.length; index++) {
+      const cartItem = this.userDetails.cart[index];
+      if (cartItem.productId === item.productId) {
+        isItemInCart = true;
+        break;
+      }
+    }
+    if (isItemInCart) {
+      return new Promise<any>((resolve, reject) => {
+        resolve('Already in cart');
+      });
+    } else {
+      this.userDetails.cart.push(item);
+      return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid)
+        .set(JSON.parse(JSON.stringify(this.userDetails)));
+    }
+
+
   }
   addAddress(adress: Address) {
     if (!adress.id) {
@@ -57,15 +73,40 @@ export class UserService {
     return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid).set(JSON.parse(JSON.stringify(this.userDetails)));
   }
   addItemToWishList(item: CartItem) {
-    this.userDetails.wishList.push(item);
-    return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid).set(JSON.parse(JSON.stringify(this.userDetails)));
+    let isItemInWishList = false;
+    for (let index = 0; index < this.userDetails.wishList.length; index++) {
+      const wishListItem = this.userDetails.wishList[index];
+      if (wishListItem.productId === item.productId) {
+        isItemInWishList = true;
+        break;
+      }
+    }
+    if (isItemInWishList) {
+      return new Promise<any>((resolve, reject) => {
+        resolve('Already in Wishlist');
+      });
+    } else {
+      this.userDetails.wishList.push(item);
+      return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid)
+        .set(JSON.parse(JSON.stringify(this.userDetails)));
+    }
   }
   removeItemFromCart(item: CartItem) {
     for (let index = 0; index < this.userDetails.cart.length; index++) {
       const itemFromCart = this.userDetails.cart[index];
       if (itemFromCart.productId === item.productId) {
-          this.userDetails.cart.splice(index, 1);
-          break;
+        this.userDetails.cart.splice(index, 1);
+        break;
+      }
+    }
+    return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid).set(JSON.parse(JSON.stringify(this.userDetails)));
+  }
+  removeItemFromWishList(item: CartItem) {
+    for (let index = 0; index < this.userDetails.wishList.length; index++) {
+      const itemFromCart = this.userDetails.wishList[index];
+      if (itemFromCart.productId === item.productId) {
+        this.userDetails.wishList.splice(index, 1);
+        break;
       }
     }
     return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid).set(JSON.parse(JSON.stringify(this.userDetails)));

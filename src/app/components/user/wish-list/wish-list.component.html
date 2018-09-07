@@ -1,3 +1,50 @@
-<p>
-  wish-list works!
-</p>
+<div class="row">
+  <div class="col-md-8">
+    <div class="row {{item.isMouseEntered? 'item-row':''}}" *ngFor="let item of wishListItems" (mouseenter)="item.isMouseEntered = true"
+      (mouseleave)="item.isMouseEntered = false">
+      <div class="col-md-2 col-4">
+        <div class="justify-content-left">
+          <img class="{{item.isOutOfStock? 'out-of-stock': ''}}" width="100" height="100" [src]="item.thumbUrl" alt="">
+          <div id="outOfStock" *ngIf="item.isOutOfStock">
+            <h4>
+              Out Of Stock
+            </h4>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-8 col-8 {{item.isOutOfStock? 'out-of-stock': ''}}">
+        <div>
+          <strong>{{item.productName}}</strong><strong *ngIf="item.isOutOfStock">Out of stock</strong><br>
+          <span>{{item.description}}</span><br>
+          <span><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{item.price}}</span><br>
+        </div>
+      </div>
+      <div class="col-md-1 col-6">
+        <div>
+          <button class="btn btn-sm btn-primary" [disabled]="item.isOutOfStock" data-toggle="tooltip" data-placement="top" title="Move to Cart"
+            (click)="moveToCart(item)">
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="col-md-1 col-6">
+        <div>
+          <button class="btn btn-sm {{item.isOutOfStock? 'btn-danger': 'btn-light'}}" data-toggle="tooltip" data-placement="top" title="Remove From Wishlist"
+            (click)="removeFromWishList(item)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-md-4">
+      <div *ngIf="showRemoveOutofStockMessage">
+        <h5 class="text-danger">Please remove the out of stock Items</h5>
+      </div>
+      <div>
+        <strong>Total Cart Value</strong><br>
+        <span><i class="fa fa-inr" aria-hidden="true"></i> {{totalCartValue}}</span><br>
+      </div>
+      <button class="btn btn-primary" [disabled]="isCartInValid" (click)="checkout()">Checkout <i class="fa fa-arrow-circle-right"
+          aria-hidden="true"></i></button>
+    </div> -->
+</div>

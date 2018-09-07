@@ -35,7 +35,6 @@ export class UtilitiesService {
     if (!url.includes('/user/auth')) {
       this.routeHistory.push(url);
     }
-    console.log(this.routeHistory);
   }
   public getLastRoute() {
     return this.routeHistory[this.routeHistory.length - 1];
@@ -43,10 +42,10 @@ export class UtilitiesService {
   public getLastRouteAsArray() {
     const lastRoute = this.routeHistory[this.routeHistory.length - 1];
     const returnRouteArray = [];
-    if (lastRoute.startsWith('/') && lastRoute.length === 1) {
+    if (lastRoute && lastRoute.startsWith('/') && lastRoute.length === 1) {
       returnRouteArray.push('/');
     }
-    if (lastRoute.startsWith('/') && lastRoute.length > 1) {
+    if (lastRoute && lastRoute.startsWith('/') && lastRoute.length > 1) {
       const routeSegements = lastRoute.split('/');
       for (let routeIndex = 0; routeIndex < routeSegements.length; routeIndex++) {
         let segment = routeSegements[routeIndex];
@@ -58,6 +57,10 @@ export class UtilitiesService {
         }
       }
     }
+    if (!returnRouteArray.length) {
+      returnRouteArray.push('/');
+    }
+    console.log(returnRouteArray);
     return returnRouteArray;
   }
 }

@@ -29,7 +29,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" [routerLinkActive]="'active'" [routerLink]="['/user', 'profile']">Profile</a>
                 <a class="dropdown-item" [routerLinkActive]="'active'" href="#">Orders</a>
-                <a class="dropdown-item" [routerLinkActive]="'active'" [routerLink]="['/user', 'wishlist']">Wishlist</a>
+                <a class="dropdown-item" [routerLinkActive]="'active'" [routerLink]="['/user', 'wishlist']">Wishlist <strong>{{wishListItemCount}}</strong></a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" (click)="signOut()">Sign Out</a>
               </div>

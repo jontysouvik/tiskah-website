@@ -10,6 +10,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { LoadingComponent } from './components/loading/loading.component';
+import { HttpClientModule } from '@angular/common/http';
 const config = {
   apiKey: 'AIzaSyBLmxKJs6pTHLQ4I-XnCWpDU9l7IW2-PU0',
   authDomain: 'tiskah-website.firebaseapp.com',
@@ -32,7 +33,8 @@ const config = {
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

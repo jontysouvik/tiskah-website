@@ -4,34 +4,52 @@
       (mouseleave)="item.isMouseEntered = false">
       <div class="col-md-2">
         <div class="justify-content-left">
-          <img width="100" height="100" [src]="item.thumbUrl" alt="">
+          <img class="{{item.isOutOfStock? 'out-of-stock': ''}}" width="100" height="100" [src]="item.thumbUrl" alt="">
+          <div id="outOfStock" *ngIf="item.isOutOfStock">
+            <h4>
+              Out Of Stock
+            </h4>
+          </div>
         </div>
+
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 {{item.isOutOfStock? 'out-of-stock': ''}}">
         <div>
-          <strong>{{item.productName}}</strong><strong *ngIf="item.isInStock">Out of stock</strong><br>
+          <strong>{{item.productName}}</strong><strong *ngIf="item.isOutOfStock">Out of stock</strong><br>
           <span>{{item.description}}</span><br>
           <span><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{item.price}}</span><br>
-          <select [(ngModel)]="item.orderQuantity" [disabled]="!item.isEditable">
+          <select [(ngModel)]="item.orderQuantity" [disabled]="item.isOutOfStock? item.isOutOfStock:!item.isEditable">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
           </select>
-          <button class="btn btn-link" *ngIf="!item.isEditable" (click)="item.isEditable = true">Change</button>
-          <button class="btn btn-link" *ngIf="item.isEditable" (click)="checkQuantityandUpdateValue(item)">Confirm</button>
+          <button class="btn btn-link" [disabled]="item.isOutOfStock" *ngIf="!item.isEditable" (click)="item.isEditable = true">Change</button>
+          <button class="btn btn-link" [disabled]="item.isOutOfStock" *ngIf="item.isEditable" (click)="checkQuantityandUpdateValue(item)">Confirm</button>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-1">
         <div>
-          <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="Remove From Cart" (click)="removeFromCart(item)"><i
-              class="fa fa-trash" aria-hidden="true"></i></button>
+          <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="Move to Wishlist" (click)="moveToWishlist(item)"><i
+              class="fa fa-heart" aria-hidden="true"></i> &nbsp;<i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <div>
+          <button class="btn btn-sm {{item.isOutOfStock? 'btn-danger': 'btn-light'}}" data-toggle="tooltip" data-placement="top" title="Remove From Cart"
+            (click)="removeFromCart(item)"><i class="fa fa-trash" aria-hidden="true"></i></button>
         </div>
       </div>
     </div>
   </div>
   <div class="col-md-4">
-    <strong>Total Cart Value</strong><br>
-    <span><i class="fa fa-inr" aria-hidden="true"></i> {{totalCartValue}}</span><br>
-    <button class="btn btn-primary" (click)="checkout()">Checkout <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+    <div *ngIf="showRemoveOutofStockMessage">
+      <h5 class="text-danger">Please remove the out of stock Items</h5>
+    </div>
+    <div>
+      <strong>Total Cart Value</strong><br>
+      <span><i class="fa fa-inr" aria-hidden="true"></i> {{totalCartValue}}</span><br>
+    </div>
+    <button class="btn btn-primary" [disabled]="isCartInValid" (click)="checkout()">Checkout <i class="fa fa-arrow-circle-right"
+        aria-hidden="true"></i></button>
   </div>
 </div>

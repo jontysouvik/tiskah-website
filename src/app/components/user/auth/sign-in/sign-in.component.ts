@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
 import { UtilitiesService } from '../../../../services/utilities.service';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -12,15 +13,17 @@ import { UtilitiesService } from '../../../../services/utilities.service';
 export class SignInComponent implements OnInit {
   email: string;
   password: string;
-  constructor(private router: Router, private authSvc: AuthService, private utilSvc: UtilitiesService) { }
+  constructor(private router: Router, private authSvc: AuthService, private utilSvc: UtilitiesService, private userSvc: UserService) { }
 
   ngOnInit() {
   }
   onSubmit(form: NgForm) {
     console.log(form);
     this.authSvc.signinWithEmailAndPassword(form.value.email, form.value.password).then((res) => {
+      this.userSvc.getUser(res.user);
       console.log(res);
       this.onCancel();
+
     });
   }
   goToSignUp() {
