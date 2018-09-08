@@ -14,9 +14,11 @@ const User_Routes: Routes = [
     path: '', component: UserComponent, children: [
       { path: '', component: ProfileComponent, pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent },
-      { path: 'cart', component: CartComponent},
-      { path: 'wishlist', component: WishListComponent},
-      { path: 'auth', loadChildren: './auth/auth.module#AuthModule' }
+      { path: 'cart', component: CartComponent },
+      { path: 'wishlist', component: WishListComponent },
+      { path: 'auth', loadChildren: './auth/auth.module#AuthModule' },
+      { path: 'addresses', component: AddressesComponent },
+      { path: 'address/:id', component: AddressComponent }
     ]
   }
 

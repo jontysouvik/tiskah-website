@@ -1,36 +1,38 @@
-<div class="product-container {{product.isMouseIn?'product-container-color':''}}" (mouseenter)="onMouseEnter(product)" (mouseleave)="onMouseLeave(product)">
+<div class="product-container {{product.isMouseIn?'product-container-color':''}}" (mouseenter)="onMouseEnter(product)"
+  (mouseleave)="onMouseLeave(product)">
   <div class="row">
     <div class="col-md-12 d-flex justify-content-center">
       <img class="product-image" [src]="product.thumbnailUrl" alt="product.name">
+      <label class="btn btn-light btn-sm rounded-circle btn-add-to-wishlist" (click)="addToWishlist(product)"><i class="fa fa-heart {{isInWishList(product)?'red-color':''}}"
+          aria-hidden="true"></i></label>
     </div>
   </div>
   <div class="row" *ngIf="product.isMouseIn">
     <div class="col-md-12 d-flex justify-content-around" *ngIf="isLoggedin">
       <button class="btn btn-light btn-sm" (click)="addToCart(product)" *ngIf="!isInCart(product)"><i class="fa fa-cart-plus"
-          aria-hidden="true"></i></button>
-      <button class="btn btn-light btn-sm" (click)="addToWishlist(product)"><i class="fa fa-heart {{isInWishList(product)?'red-color':''}}"
-          aria-hidden="true"></i></button>
+          aria-hidden="true"></i> Add to Cart</button>
     </div>
     <div class="col-md-12 d-flex justify-content-around" *ngIf="!isLoggedin">
       please log in
     </div>
   </div>
   <div class="row" *ngIf="!product.isMouseIn">
-    <div class="col-md-12 d-flex justify-content-around">
-      <button class="btn btn-sm btn-block">{{product.name}}</button>
+    <div class="col-md-12 text-row d-flex justify-content-around">
+      <button class="btn btn-sm btn-block text-row"><strong>{{product.name}}</strong></button>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12 d-flex justify-content-around">
       <div *ngIf="product.isOnSale">
-        <button class="btn btn-sm">
+        <button class="btn btn-sm text-row product-price">
           <i class="fa fa-inr" aria-hidden="true"></i> &nbsp;{{product.salePrice}}
-          <span class="strike"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{product.price}}</span> {{calculateDiscount()}}
+          <span class="strike"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{product.price}}</span>
+          {{calculateDiscount()}}
         </button>
       </div>
       <div *ngIf="!product.isOnSale">
-        <button class="btn btn-sm">
-          <i class="fa fa-inr" aria-hidden="true"></i> &nbsp; {{product.price}}
+        <button class="btn btn-sm text-row product-price">
+          <i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{product.price}}
         </button>
       </div>
     </div>

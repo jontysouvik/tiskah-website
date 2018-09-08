@@ -24,3 +24,20 @@
 .red-color{
   color: #dc3545;
 }
+.text-row{
+  background-color: rgb(255, 255, 255);
+}
+.product-price {
+  color: #d36811;
+}
+.btn-add-to-wishlist{
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0);
+  color: rgba(255, 255, 255, 0.8);
+  border: none;
+  font-size: 1.4rem;
+  top: 0%;
+}
+.btn-add-to-wishlist:focus{
+  outline: none;
+}
