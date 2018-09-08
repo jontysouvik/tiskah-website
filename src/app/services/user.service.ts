@@ -111,4 +111,25 @@ export class UserService {
     }
     return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid).set(JSON.parse(JSON.stringify(this.userDetails)));
   }
+  saveAddress(address: Address) {
+    let addressFound = false;
+    for (let index = 0; index < this.userDetails.addresses.length; index++) {
+      const addressUser = this.userDetails.addresses[index];
+      if (address.id === addressUser.id) {
+        addressFound = true;
+        if (this.userDetails.addresses[index].isDefault) {
+          address.isDefault = true;
+        }
+        this.userDetails.addresses[index] = address;
+      }
+      
+    }
+    if (!addressFound) {
+      this.userDetails.addresses.push(address);
+    }
+    if (this.userDetails.addresses.length === 1) {
+      this.userDetails.addresses[0].isDefault = true;
+    }
+    return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid).set(JSON.parse(JSON.stringify(this.userDetails)));
+  }
 }

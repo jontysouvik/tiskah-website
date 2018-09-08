@@ -11,4 +11,5 @@ export class Address {
   public city: string;
   public state: string;
   public timeStamp: number;
+  public isDefault: boolean;
 }

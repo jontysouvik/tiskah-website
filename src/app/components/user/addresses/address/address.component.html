@@ -1,3 +1,126 @@
-<p>
-  address works!
-</p>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="form-row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" class="form-control" id="firstName" [(ngModel)]="address.firstName"
+              required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" class="form-control" id="lastName" [(ngModel)]="address.lastName"
+              required>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="form-row">
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" name="email" class="form-control" id="email" [(ngModel)]="address.email" required pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
+                </div>
+          </div>
+        </div> -->
+      <div class="form-row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="addressLine1">Address Line 1</label>
+            <input type="text" name="addressLine1" class="form-control" id="addressLine1" [(ngModel)]="address.addressLine1"
+              required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="addressLine2">Address Line 2</label>
+            <input type="text" name="addressLine2" class="form-control" id="addressLine2" [(ngModel)]="address.addressLine2">
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="country">Country</label>
+            <select name="country" id="country" class="form-control" disabled [(ngModel)]="address.country">
+              <option value="India">India</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="tel" name="mobileNumber" class="form-control" id="mobileNumber" [(ngModel)]="address.mobileNumber"
+              required pattern="^\d{10}$" maxlength="10">
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="pincode">Pincode</label>
+            <input type="number" name="pincode" class="form-control" id="pincode" [(ngModel)]="address.postCode"
+              required pattern="^\d{6}$" maxlength="6">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" name="city" class="form-control" id="city" [(ngModel)]="address.city" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="state">State</label>
+            <select name="state" id="state" class="form-control" [(ngModel)]="address.state" required>
+              <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+              <option value="Andhra Pradesh">Andhra Pradesh</option>
+              <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+              <option value="Assam">Assam</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Chandigarh">Chandigarh</option>
+              <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+              <option value="Daman and Diu">Daman and Diu</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Goa">Goa</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Himachal Pradesh">Himachal Pradesh</option>
+              <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Kerala">Kerala</option>
+              <option value="Lakshadweep Islands">Lakshadweep Islands</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Manipur">Manipur</option>
+              <option value="Meghalaya">Meghalaya</option>
+              <option value="Mizoram">Mizoram</option>
+              <option value="Nagaland">Nagaland</option>
+              <option value="Odisha">Odisha</option>
+              <option value="Pondicherry">Pondicherry</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Sikkim">Sikkim</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Tripura">Tripura</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Jharkhand">Jharkhand</option>
+              <option value="Uttarakhand">Uttarakhand</option>
+              <option value="Chhattisgarh">Chhattisgarh</option>
+              <option value="Telangana">Telangana</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <button type="submit" [disabled]="f.invalid">Save</button>
+      <!-- <button type="button" (click)="goToSignUp()">Sign Up</button>
+      <button type="button" (click)="onCancel()">Cancel</button> -->
+    </form>
+  </div>
+  <div class="col-md-2"></div>
+</div>
