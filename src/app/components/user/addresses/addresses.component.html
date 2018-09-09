@@ -1,4 +1,18 @@
-<p>
-  addresses works!
-</p>
-<a [routerLink]="['/user','address', '0']">Add Address</a>
+<div class="row">
+  <div class="col-md-2 col-sm-4">
+    <a [routerLink]="['/user','address', '0']">Add Address</a>
+  </div>
+  <div class="col-md-2 col-sm-4" *ngFor="let address of addresses">
+    <div>
+      <strong>{{address.firstName}}&nbsp;{{address.lastName}}</strong> <br>
+      <span>{{address.mobileNumber}}</span> <br>
+      <span>{{address.addressLine1}}</span> <br>
+      <span>{{address.city}} {{address.state}}
+        <strong>{{address.postCode}}</strong></span> <br>
+      <button class="btn btn-block btn-primary" (click)="onEdit(address)">Edit Address</button>
+      <button class="btn btn-block {{address.isDefault?'btn-outline-primary':'btn-primary'}}"
+       [disabled]="address.isDefault" (click)="makeDefault(address)">
+       {{address.isDefault?'Default Address':'Make Default'}}</button>
+    </div>
+  </div>
+</div>

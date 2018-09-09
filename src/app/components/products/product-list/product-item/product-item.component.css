@@ -41,3 +41,9 @@
 .btn-add-to-wishlist:focus{
   outline: none;
 }
+.product-name{
+  display:inline-block;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+}

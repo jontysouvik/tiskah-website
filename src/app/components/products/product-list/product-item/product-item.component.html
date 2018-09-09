@@ -9,8 +9,8 @@
   </div>
   <div class="row" *ngIf="product.isMouseIn">
     <div class="col-md-12 d-flex justify-content-around" *ngIf="isLoggedin">
-      <button class="btn btn-light btn-sm" (click)="addToCart(product)" *ngIf="!isInCart(product)"><i class="fa fa-cart-plus"
-          aria-hidden="true"></i> Add to Cart</button>
+      <button class="btn btn-light btn-sm" (click)="addToCart(product)" [disabled]="isInCart(product)"><i class="fa fa-cart-plus"
+        aria-hidden="true"></i> {{isInCart(product)?'Added to Cart':'Add to Cart'}}</button>
     </div>
     <div class="col-md-12 d-flex justify-content-around" *ngIf="!isLoggedin">
       please log in
@@ -18,7 +18,7 @@
   </div>
   <div class="row" *ngIf="!product.isMouseIn">
     <div class="col-md-12 text-row d-flex justify-content-around">
-      <button class="btn btn-sm btn-block text-row"><strong>{{product.name}}</strong></button>
+      <button class="btn btn-sm btn-block text-row product-name"><strong class="">{{product.name}}</strong></button>
     </div>
   </div>
   <div class="row">
