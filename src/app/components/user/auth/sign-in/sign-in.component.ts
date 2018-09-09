@@ -32,4 +32,10 @@ export class SignInComponent implements OnInit {
   onCancel() {
     this.router.navigate(this.utilSvc.getLastRouteAsArray());
   }
+  onForgotPassword() {
+    console.log(this.email);
+    this.authSvc.sendPasswordResetLink(this.email).then(() => {
+      console.log('Succesfully sent reset mail');
+    });
+  }
 }

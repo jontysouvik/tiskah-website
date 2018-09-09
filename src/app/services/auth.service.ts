@@ -34,4 +34,7 @@ export class AuthService {
   addNewUserData(user: User) {
     return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(user.uid).set(JSON.parse(JSON.stringify(user)));
   }
+  sendPasswordResetLink(email) {
+    return this._firebaseAuth.auth.sendPasswordResetEmail(email);
+  }
 }
