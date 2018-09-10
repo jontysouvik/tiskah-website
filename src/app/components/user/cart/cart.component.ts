@@ -53,10 +53,12 @@ export class CartComponent implements OnInit, OnDestroy {
         res.forEach((product) => {
           if (cartItem.productId === product.id) {
             cartItem.price = product.isOnSale ? product.salePrice : product.price;
-            if (cartItem.orderQuantity >= product.quantity) {
-              cartItem.isOutOfStock = true;
-            } else {
-              cartItem.isOutOfStock = false;
+            if (!cartItem.isEditable) {
+              if (cartItem.orderQuantity >= product.quantity) {
+                cartItem.isOutOfStock = true;
+              } else {
+                cartItem.isOutOfStock = false;
+              }
             }
           }
         });
@@ -88,16 +90,29 @@ export class CartComponent implements OnInit, OnDestroy {
         console.log(res);
         if (res && res.length) {
           const product: any = res[0];
-          if (item.orderQuantity > product.quantity) {
+          if (item.orderQuantity >= product.quantity) {
             item.orderQuantity = 1;
             console.log('Stock Not available you can only order ' + product.quantity);
+            item.isEditable = false;
+            this.updateCartValue();
+            this.checkCartValidity();
+          } else {
+            item.isEditable = false;
+            this.updateCartValue();
+            this.checkCartValidity();
+            this.userSvc.updateCartItem(item).then(() => {
+            });
           }
         }
-        item.isEditable = false;
-        this.updateCartValue();
-        this.checkCartValidity();
+      });
+    } else {
+      item.isEditable = false;
+      this.updateCartValue();
+      this.checkCartValidity();
+      this.userSvc.updateCartItem(item).then(() => {
       });
     }
+    item.isEditable = false;
     this.updateCartValue();
     this.checkCartValidity();
   }

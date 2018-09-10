@@ -146,6 +146,18 @@ export class UserService {
   }
   getAddressById(id: number) {
     return this.afs.doc(this.CONST_USER_COLLECTION_NAME + '/' + this.userDetails.uid).valueChanges();
-
+  }
+  updateCartItem(cartItem: CartItem) {
+    for (let index = 0; index < this.userDetails.cart.length; index++) {
+      const item = this.userDetails.cart[index];
+      if (item.productId === cartItem.productId) {
+        console.log(this.userDetails.cart[index], 'before');
+        this.userDetails.cart[index] = cartItem;
+        console.log(this.userDetails.cart[index], 'After');
+        break;
+      }
+    }
+    return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid)
+      .set(JSON.parse(JSON.stringify(this.userDetails)));
   }
 }

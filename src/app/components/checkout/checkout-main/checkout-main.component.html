@@ -32,5 +32,36 @@
 
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Review Products</h4>
+      </div>
+    </div>
+    <div class="row mb-3" *ngFor="let item of cartItems">
+      <div class="col-md-2">
+        <div class="justify-content-left">
+          <img class="{{item.isOutOfStock? 'out-of-stock': ''}}" width="100" height="100" [src]="item.thumbUrl" alt="">
+          <div id="outOfStock" *ngIf="item.isOutOfStock">
+            <h4>
+              Out Of Stock
+            </h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <strong>{{item.productName}}</strong><br>
+        <span>{{item.description}}</span><br>
+        <span><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{item.price * item.orderQuantity}}
+          <span *ngIf="item.orderQuantity > 1">
+            ({{item.orderQuantity}} of <i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{item.price}} Each)
+          </span>
+           </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        {{totalCartValue}}
+      </div>
+    </div>
   </div>
 </div>
