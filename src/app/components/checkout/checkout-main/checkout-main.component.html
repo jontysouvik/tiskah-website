@@ -55,12 +55,23 @@
           <span *ngIf="item.orderQuantity > 1">
             ({{item.orderQuantity}} of <i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{item.price}} Each)
           </span>
-           </span>
+        </span>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
         {{totalCartValue}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn {{paymentMethod === 'COD'?'btn-outline-primary':'btn-primary'}}" (click)="setPaymentMethod('COD')">COD</button>
+        <button class="btn {{paymentMethod !== 'COD'?'btn-outline-primary':'btn-primary'}}" (click)="setPaymentMethod('Prepaid')">Prepaid</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button (click)="placeOrder()">Place Order</button>
       </div>
     </div>
   </div>

@@ -6,6 +6,7 @@ import { User } from '../../../models/user';
 import { CartItem } from '../../../models/cart-item';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/product';
+import { Order, PayemetType, OrderStatus } from '../../../models/order';
 
 @Component({
   selector: 'app-checkout-main',
@@ -18,10 +19,12 @@ export class CheckoutMainComponent implements OnInit {
   totalCartValue: number;
   isCartInValid = true;
   userSubscription: Subscription;
+  paymentMethod: string;
+  selectedAddress: Address;
   constructor(private userSvc: UserService, private productSvc: ProductService) { }
 
   ngOnInit() {
-    this.addresses = this.userSvc.userDetails.addresses
+    this.addresses = this.userSvc.userDetails.addresses;
     this.cartItems = this.userSvc.userDetails.cart;
     this.selectDefaultAddress();
     if (this.cartItems.length) {
@@ -87,6 +90,7 @@ export class CheckoutMainComponent implements OnInit {
       const address: any = this.addresses[index];
       if (address.isDefault) {
         address.isSelected = true;
+        this.selectedAddress = address;
       }
     }
   }
@@ -95,9 +99,23 @@ export class CheckoutMainComponent implements OnInit {
       const address: any = this.addresses[index];
       if (selectedAddress.id === address.id) {
         address.isSelected = true;
+        this.selectedAddress = address;
       } else {
-        address.isSelected = false; 
+        address.isSelected = false;
       }
     }
+  }
+  setPaymentMethod(type) {
+    this.paymentMethod = type;
+    console.log(this.paymentMethod);
+  }
+  placeOrder() {
+    const order = new Order();
+    order.billingAddress = this.selectedAddress;
+    order.orderedItems = this.cartItems;
+    order.paymentType = PayemetType.COD;
+    order.orderStatus = OrderStatus.New;
+    order.timeStamp = new Date().getTime();
+    console.log(order);
   }
 }
