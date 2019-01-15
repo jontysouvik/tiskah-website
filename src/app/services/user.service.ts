@@ -101,6 +101,10 @@ export class UserService {
     }
     return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid).set(JSON.parse(JSON.stringify(this.userDetails)));
   }
+  clearCart() {
+    this.userDetails.cart = [];
+    return this.afs.collection(this.CONST_USER_COLLECTION_NAME).doc(this.userDetails.uid).set(JSON.parse(JSON.stringify(this.userDetails)));
+  }
   removeItemFromWishList(item: CartItem) {
     for (let index = 0; index < this.userDetails.wishList.length; index++) {
       const itemFromCart = this.userDetails.wishList[index];

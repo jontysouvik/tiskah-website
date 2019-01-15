@@ -14,8 +14,8 @@ const Products_Routes: Routes = [
           { path: 'categories', component: ProductDashboardComponent},
           { path: 'categories/:id', component: ProductListComponent},
           { path: 'categories/:id/:name', component: ProductListComponent},
-          { path: 'product/:id', component: ProductComponent}//,
-          //{ path: '**', redirectTo: 'categories' }
+          { path: 'product/:id', component: ProductComponent} // ,
+          // { path: '**', redirectTo: 'categories' }
 
       ]
   }

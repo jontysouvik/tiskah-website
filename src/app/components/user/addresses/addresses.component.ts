@@ -16,7 +16,7 @@ export class AddressesComponent implements OnInit {
   constructor(private userSvc: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.addresses = this.userSvc.userDetails.addresses
+    this.addresses = this.userSvc.userDetails.addresses;
     this.userSubscription = this.userSvc.userDataEventEmmiter.subscribe((res: User) => {
       this.addresses = res.addresses;
     });
@@ -24,7 +24,7 @@ export class AddressesComponent implements OnInit {
   makeDefault(address: Address) {
     this.userSvc.makeAddressDefault(address).then(() => {
 
-    })
+    });
   }
   onEdit(address: Address) {
     this.router.navigate(['/user', 'address', address.id.toString()]);

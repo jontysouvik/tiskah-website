@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Address } from '../../../models/address';
-import { Subscription } from 'rxjs';
+import { Subscription, from } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
 import { CartItem } from '../../../models/cart-item';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/product';
 import { Order, PayemetType, OrderStatus } from '../../../models/order';
-
+import { OrderService } from './../../../services/order.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-checkout-main',
   templateUrl: './checkout-main.component.html',
@@ -21,7 +22,7 @@ export class CheckoutMainComponent implements OnInit {
   userSubscription: Subscription;
   paymentMethod: string;
   selectedAddress: Address;
-  constructor(private userSvc: UserService, private productSvc: ProductService) { }
+  constructor(private userSvc: UserService, private productSvc: ProductService, private orderSvc: OrderService, private router: Router) { }
 
   ngOnInit() {
     this.addresses = this.userSvc.userDetails.addresses;
@@ -37,6 +38,7 @@ export class CheckoutMainComponent implements OnInit {
       this.cartItems = res.cart;
       this.checkIfInStock();
       this.updateCartValue();
+      this.paymentMethod = 'COD';
     });
   }
   checkIfInStock() {
@@ -91,6 +93,8 @@ export class CheckoutMainComponent implements OnInit {
       if (address.isDefault) {
         address.isSelected = true;
         this.selectedAddress = address;
+      } else {
+        address.isSelected = false;
       }
     }
   }
@@ -112,10 +116,18 @@ export class CheckoutMainComponent implements OnInit {
   placeOrder() {
     const order = new Order();
     order.billingAddress = this.selectedAddress;
+    order.shippingAddress = this.selectedAddress;
     order.orderedItems = this.cartItems;
     order.paymentType = PayemetType.COD;
     order.orderStatus = OrderStatus.New;
     order.timeStamp = new Date().getTime();
     console.log(order);
+    this.orderSvc.saveOrder(order).then((result) => {
+      console.log(result);
+      this.userSvc.clearCart().then(() => {
+        console.log('Cart Cleared');
+        this.router.navigate(['/checkout', 'status']);
+      });
+    });
   }
 }

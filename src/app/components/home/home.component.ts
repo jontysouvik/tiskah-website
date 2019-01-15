@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
+import { CategoryService } from './../../services/category.service';
+import { Category } from '../../models/category';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,10 +16,15 @@ export class HomeComponent implements OnInit {
   layouts: Observable<any>;
   images: any;
   demo = 'Stop';
-
-  constructor(private afs: AngularFirestore) { }
+  categories: Category[] = [];
+  constructor(private afs: AngularFirestore, private categorySvc: CategoryService, private router: Router) { }
 
   ngOnInit() {
+
+    const catSubs = this.categorySvc.getAllCategories().subscribe((categories: Category[]) => {
+      console.log(categories);
+      this.categories = categories;
+    });
     this.layoutObserable = this.afs.collection('layout').doc('home');
 
     // this.layout = this.layoutObserable.snapshotChanges();
@@ -71,4 +79,7 @@ export class HomeComponent implements OnInit {
   //     return 'col-md-4';
   //   }
   // }
+  goToCategory(category: Category) {
+    this.router.navigate(['/products', 'categories' , category.id, 'anything']);
+  }
 }

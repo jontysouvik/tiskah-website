@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, OnInit, EventEmitter } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Category } from '../models/category';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable, Subscription } from 'rxjs';

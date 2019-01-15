@@ -2,7 +2,7 @@
   (mouseleave)="onMouseLeave(product)">
   <div class="row">
     <div class="col-md-12 d-flex justify-content-center">
-      <img class="product-image" [src]="product.thumbnailUrl" alt="product.name">
+      <img class="product-image" [src]="product.thumbnailUrl" alt="product.name" (click)="goToProduct(product)">
       <label class="btn btn-light btn-sm rounded-circle btn-add-to-wishlist" (click)="addToWishlist(product)"><i class="fa fa-heart {{isInWishList(product)?'red-color':''}}"
           aria-hidden="true"></i></label>
     </div>

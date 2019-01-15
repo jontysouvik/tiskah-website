@@ -10,11 +10,6 @@ import { UtilitiesService } from './services/utilities.service';
 export class AppComponent {
   isProductionReady: boolean;
   constructor(private router: Router, private utilSvc: UtilitiesService) {
-    if (environment.production) {
-      this.isProductionReady = false;
-    } else {
-      this.isProductionReady = true;
-    }
     this.router.events.subscribe((event: Event) => {
 
       if (event instanceof NavigationStart) {

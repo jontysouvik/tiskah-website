@@ -4,6 +4,7 @@ import { UserService } from '../../../../services/user.service';
 import { CartItem } from '../../../../models/cart-item';
 import { AuthService } from '../../../../services/auth.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-item',
@@ -16,7 +17,7 @@ export class ProductItemComponent implements OnInit {
   product: Product;
   authSubscription: Subscription;
   isLoggedin = false;
-  constructor(private userSvc: UserService, private authSvc: AuthService) {
+  constructor(private userSvc: UserService, private authSvc: AuthService, private router: Router) {
     this.authSubscription = this.authSvc.userObservable.subscribe((user) => {
       if (user) {
         this.isLoggedin = true;
@@ -80,5 +81,9 @@ export class ProductItemComponent implements OnInit {
       }
     }
     return product.inWishList;
+  }
+  goToProduct(product) {
+    console.log(product);
+    this.router.navigate(['/products', 'product', product.id]);
   }
 }

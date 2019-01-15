@@ -1,4 +1,4 @@
-<a [routerLink]="['/products', 'categories' , '1536039197396', 'anything']">Earrings</a>
+<a href="javascript:void()" class="category-link" *ngFor="let category of categories" (click)="goToCategory(category)">{{category.name}}</a>
 <div class="row">
   <div *ngFor="let image of images" class="col-md-4 col-6 image-div">
     <img [src]="image.url" alt="" width="100%">

@@ -1,6 +1,14 @@
-.add-icon{
-    font-size: 10rem;
+.add-icon {
+  font-size: 10rem;
 }
-.add-address-text{
-    text-align: center;
+
+.add-address-text {
+  text-align: center;
+}
+
+.add-address {
+  cursor: pointer;
+}
+.btn {
+  margin-right: 10px;
 }

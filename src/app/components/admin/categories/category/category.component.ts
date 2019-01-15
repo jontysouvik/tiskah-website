@@ -30,7 +30,7 @@ export class CategoryComponent implements OnInit {
     });
   }
   onSaveClick() {
-    this.category.routeFriendlyName = this.utilSvc.getRouteFirendlyName(this.category.name)
+    this.category.routeFriendlyName = this.utilSvc.getRouteFirendlyName(this.category.name);
     this.categorySvc.saveCategory(this.category).then((res) => {
       this.router.navigate(['/admin', 'categories']);
     }).catch((reason) => {

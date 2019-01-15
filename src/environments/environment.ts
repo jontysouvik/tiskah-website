@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   categoriesCollectionName: 'categoriesDev',
   productsCollectionName: 'productsDev',
+  ordersCollectionName: 'ordersDev',
   imageSizeLimitInBytes: 100000,
   productImageUploadPath: 'ProductsImagesDev',
   thumbnailPrefix: 'thumb_200x200_',

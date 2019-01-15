@@ -1,9 +1,12 @@
-<div class="container" *ngIf="isProductionReady">
+<div class="container">
+  <div class="row beta">
+    <div class="col-md-12">
+      <div>
+        <h1> This is only for Beta testing No orders will be accepted!!</h1>
+      </div>
+    </div>
+  </div>
   <app-menu></app-menu>
   <router-outlet></router-outlet>
   <app-loading></app-loading>
 </div>
-<div *ngIf="!isProductionReady">
-    <app-placeholder></app-placeholder>
-</div>
-
