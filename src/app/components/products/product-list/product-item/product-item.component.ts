@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class ProductItemComponent implements OnInit {
 
   @Input()
-  product: Product;
+  product: any;
   authSubscription: Subscription;
   isLoggedin = false;
   constructor(private userSvc: UserService, private authSvc: AuthService, private router: Router) {
