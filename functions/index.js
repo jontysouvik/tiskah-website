@@ -32,7 +32,7 @@ exports.getProductsByIds = functions.https.onRequest((request, response) => {
     let docRefarray = [];
     for (let index = 0; index < productIds.length; index++) {
       const productId = productIds[index];
-      docRefarray.push(admin.firestore().collection('productsDev').doc(productId));
+      docRefarray.push(admin.firestore().collection('products').doc(productId));
     }
     admin.firestore().getAll(docRefarray).then((docs) => {
       const retarray = [];
