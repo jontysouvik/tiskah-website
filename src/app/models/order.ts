@@ -25,4 +25,5 @@ export class Order {
   public timeStamp: number;
   public paymentType: PayemetType;
   public orderStatus: OrderStatus;
+  public userId: string;
 }

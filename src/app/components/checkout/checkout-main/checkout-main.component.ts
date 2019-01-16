@@ -121,6 +121,7 @@ export class CheckoutMainComponent implements OnInit {
     order.paymentType = PayemetType.COD;
     order.orderStatus = OrderStatus.New;
     order.timeStamp = new Date().getTime();
+    order.userId = this.userSvc.userDetails.uid;
     console.log(order);
     this.orderSvc.saveOrder(order).then((result) => {
       console.log(result);

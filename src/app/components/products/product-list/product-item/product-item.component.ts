@@ -38,7 +38,7 @@ export class ProductItemComponent implements OnInit {
   calculateDiscount() {
     const discount = this.product.price - this.product.salePrice;
     const discountPercent = discount / this.product.price * 100;
-    return '(' + discountPercent.toString() + '% Off)';
+    return '(' + Math.round(discountPercent).toString() + '% Off)';
   }
   addToCart(product) {
     const cartItem = new CartItem();
@@ -64,6 +64,9 @@ export class ProductItemComponent implements OnInit {
   }
   isInCart(product) {
     product.inCart = false;
+    if (!this.userSvc.userDetails.cart) {
+      this.userSvc.userDetails.cart = [];
+    }
     for (let index = 0; index < this.userSvc.userDetails.cart.length; index++) {
       const cartItem = this.userSvc.userDetails.cart[index];
       if (cartItem.productId === product.id) {
@@ -74,6 +77,9 @@ export class ProductItemComponent implements OnInit {
   }
   isInWishList(product) {
     product.inWishList = false;
+    if (!this.userSvc.userDetails.wishList) {
+      this.userSvc.userDetails.wishList = [];
+    }
     for (let index = 0; index < this.userSvc.userDetails.wishList.length; index++) {
       const cartItem = this.userSvc.userDetails.wishList[index];
       if (cartItem.productId === product.id) {
