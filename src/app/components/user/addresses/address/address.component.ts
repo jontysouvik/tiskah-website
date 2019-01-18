@@ -14,6 +14,8 @@ import { User } from '../../../../models/user';
 export class AddressComponent implements OnInit {
   address: Address;
   activeRouteSubscription: Subscription;
+  activeRouteQuerySubscription: Subscription;
+  navaigateTo: string;
   constructor(private userSvc: UserService, private router: Router, private activeRoute: ActivatedRoute) {
     this.address = new Address();
   }
@@ -30,6 +32,11 @@ export class AddressComponent implements OnInit {
         }
       }
     });
+    this.activeRouteQuerySubscription = this.activeRoute.queryParams.subscribe(qparams => {
+      if (qparams.from && qparams.from === 'checkout') {
+        this.navaigateTo = 'checkout';
+      }
+    });
   }
   onSubmit(form: NgForm) {
     if (form.valid) {
@@ -43,7 +50,11 @@ export class AddressComponent implements OnInit {
         this.address.email = this.userSvc.userDetails.email;
       }
       this.userSvc.saveAddress(this.address).then(() => {
-        this.router.navigate(['/user', 'addresses']);
+        if (this.navaigateTo === 'checkout') {
+          this.router.navigate(['/checkout', 'main']);
+        } else {
+          this.router.navigate(['/user', 'addresses']);
+        }
       });
     }
   }

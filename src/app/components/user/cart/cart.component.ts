@@ -54,7 +54,7 @@ export class CartComponent implements OnInit, OnDestroy {
           if (cartItem.productId === product.id) {
             cartItem.price = product.isOnSale ? product.salePrice : product.price;
             if (!cartItem.isEditable) {
-              if (cartItem.orderQuantity >= product.quantity) {
+              if (cartItem.orderQuantity > product.quantity) {
                 cartItem.isOutOfStock = true;
               } else {
                 cartItem.isOutOfStock = false;

@@ -18,7 +18,7 @@
             (click)="onAddressSelect(address)">{{address.isSelected?'Selected Address':'Deliver to This Address'}}</button>
         </div>
       </div>
-      <div class="col-md-4 col-sm-6 add-address" [routerLink]="['/user','address', '0']">
+      <div class="col-md-4 col-sm-6 add-address" [routerLink]="['/user','address', '0']" [queryParams]="{from: 'checkout'}">
         <div class="row">
           <div class="col-md-12 d-flex justify-content-center">
             <i class="fa fa-plus add-icon" aria-hidden="true"></i>
@@ -65,13 +65,16 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <button class="btn {{paymentMethod === 'COD'?'btn-outline-primary':'btn-primary'}}" (click)="setPaymentMethod('COD')">COD</button>
-        <button class="btn {{paymentMethod !== 'COD'?'btn-outline-primary':'btn-primary'}}" (click)="setPaymentMethod('Prepaid')" disabled>Prepaid</button>
+        <h4>Payment Method</h4>
+        <input type="radio" name="payment" id="paymentCOD" value="COD" [(ngModel)]="paymentMethod">
+        <label for="paymentCOD">Cash On Delivery</label> &nbsp;
+        <input type="radio" name="payment" id="paymentPrepaid" value="Prepaid" [(ngModel)]="paymentMethod" disabled>
+        <label for="paymentPrepaid">Prepaid</label>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <button (click)="placeOrder()">Place Order</button>
+        <button class="btn btn-primary" (click)="placeOrder()">Place Order</button>
       </div>
     </div>
   </div>

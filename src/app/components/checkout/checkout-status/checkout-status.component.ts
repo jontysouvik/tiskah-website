@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-checkout-status',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./checkout-status.component.css']
 })
 export class CheckoutStatusComponent implements OnInit {
-
-  constructor() { }
+  status: string;
+  constructor(private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activeRoute.params.subscribe(params => {
+      if (params.statusname.toString() === 'success') {
+        this.status = 'success';
+      } else {
+        this.status = 'fail';
+      }
+    });
   }
 
 }

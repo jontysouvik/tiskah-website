@@ -4,14 +4,14 @@
 
 export const environment = {
   production: false,
-  categoriesCollectionName: 'categoriesDev',
-  productsCollectionName: 'productsDev',
-  ordersCollectionName: 'ordersDev',
+  categoriesCollectionName: 'categories',
+  productsCollectionName: 'products',
+  ordersCollectionName: 'orders',
   imageSizeLimitInBytes: 100000,
-  productImageUploadPath: 'ProductsImagesDev',
+  productImageUploadPath: 'ProductsImages',
   thumbnailPrefix: 'thumb_200x200_',
   defaultAdminRecordFetchLimit: 5,
-  userCollectionName: 'usersDev'
+  userCollectionName: 'users'
 };
 
 /*

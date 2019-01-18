@@ -20,7 +20,7 @@ export class CheckoutMainComponent implements OnInit {
   totalCartValue: number;
   isCartInValid = true;
   userSubscription: Subscription;
-  paymentMethod: string;
+  paymentMethod = 'COD';
   selectedAddress: Address;
   constructor(private userSvc: UserService, private productSvc: ProductService, private orderSvc: OrderService, private router: Router) { }
 
@@ -56,7 +56,7 @@ export class CheckoutMainComponent implements OnInit {
         res.forEach((product) => {
           if (cartItem.productId === product.id) {
             cartItem.price = product.isOnSale ? product.salePrice : product.price;
-            if (cartItem.orderQuantity >= product.quantity) {
+            if (cartItem.orderQuantity > product.quantity) {
               cartItem.isOutOfStock = true;
             } else {
               cartItem.isOutOfStock = false;
@@ -118,16 +118,22 @@ export class CheckoutMainComponent implements OnInit {
     order.billingAddress = this.selectedAddress;
     order.shippingAddress = this.selectedAddress;
     order.orderedItems = this.cartItems;
-    order.paymentType = PayemetType.COD;
-    order.orderStatus = OrderStatus.New;
+    if (this.paymentMethod === 'COD') {
+      order.paymentType = PayemetType[0].value;
+    } else {
+      order.paymentType = PayemetType[1].value;
+    }
+
+    order.orderStatus = OrderStatus[0].value;
     order.timeStamp = new Date().getTime();
     order.userId = this.userSvc.userDetails.uid;
-    console.log(order);
     this.orderSvc.saveOrder(order).then((result) => {
       console.log(result);
       this.userSvc.clearCart().then(() => {
         console.log('Cart Cleared');
-        this.router.navigate(['/checkout', 'status']);
+        this.router.navigate(['/checkout', 'status', 'success']);
+      }, (error) => {
+        this.router.navigate(['/checkout', 'status', 'fail']);
       });
     });
   }

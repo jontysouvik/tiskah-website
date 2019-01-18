@@ -34,4 +34,7 @@ export class OrderService {
     }
     return this.afs.collection(this.CONST_ORDERS_COLLECTION_NAME).doc(order.id).set(JSON.parse(JSON.stringify(order)));
   }
+  getOrdersforAdmin() {
+    return this.afs.collection(this.CONST_ORDERS_COLLECTION_NAME).valueChanges();
+  }
 }
